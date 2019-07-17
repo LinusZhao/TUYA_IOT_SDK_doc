@@ -1,0 +1,5 @@
+.vscode/
+*.log
+*.db
+*.db_bak
+output/
