@@ -63,12 +63,15 @@ int main(void)
         PR_ERR("tuya_iot_init err:%d PATH:%s", op_ret, CFG_STORAGE_PATH);
         return -1;
     }
-    PR_DEBUG("tuya_iot_init success");
+    PR_NOTICE("tuya_iot_init success");
+
     // 设置日志输出等级
-    op_ret = SetLogManageAttr(LOG_LEVEL_DEBUG);
+    op_ret = SetLogManageAttr(LOG_LEVEL_TRACE);
     if(OPRT_OK != op_ret){
-        PR_ERR("GetLogManageAttr op_ret is %d\n",op_ret);
+        PR_ERR("SetLogManageAttr op_ret is %d\n",op_ret);
+        return -1;
     }
+    PR_NOTICE("SetLogManageAttr success");
 
     WF_GW_PROD_INFO_S prod_info = {UUID, AUTHKEY, NULL, NULL};
     op_ret = tuya_iot_set_wf_gw_prod_info(&prod_info);
@@ -76,7 +79,7 @@ int main(void)
         PR_ERR("tuya_iot_set_wf_gw_prod_info err:%d", op_ret);
         return -2;
     }
-    PR_DEBUG("tuya_iot_set_wf_gw_prod_info success");
+    PR_NOTICE("tuya_iot_set_wf_gw_prod_info success");
 
     TY_IOT_CBS_S iot_cbs = {
         __soc_dev_status_changed_cb,
@@ -87,28 +90,19 @@ int main(void)
         __soc_dev_dp_query_cb,
         NULL,
     };
-    op_ret = tuya_iot_wf_soc_dev_init(GWCM_OLD, WF_START_SMART_FIRST, &iot_cbs, PRODUCT_KEY, USER_SW_VER);
+    op_ret = tuya_iot_wf_soc_dev_init(GWCM_OLD, WF_START_AP_ONLY, &iot_cbs, PRODUCT_KEY, USER_SW_VER);
     if(OPRT_OK != op_ret) {
         PR_ERR("tuya_iot_wf_soc_dev_init err:%d",op_ret);
         return -3;
     }
-    PR_DEBUG("tuya_iot_wf_soc_dev_init success");
+    PR_NOTICE("tuya_iot_wf_soc_dev_init success");
 
     op_ret = tuya_iot_reg_get_wf_nw_stat_cb(__soc_dev_net_status_cb);
     if(OPRT_OK != op_ret) {
         PR_ERR("tuya_iot_reg_get_wf_nw_stat_cb err:%d",op_ret);
         return -4;
     }
-    PR_DEBUG("tuya_iot_reg_get_wf_nw_stat_cb success");
-
-    // pthread_t self_thread_id;
-    // self_thread_id = pthread_self();
-    // PR_DEBUG("self_thread_id:%ld",self_thread_id);
-    // PR_DEBUG("getpid:%ld",getpid());
-    
-    // pthread_t test_thread_id;
-    // pthread_create(&test_thread_id,NULL,test_thread_fn,NULL);
-    // PR_DEBUG("test_thread_id:%ld",test_thread_id);
+    PR_NOTICE("tuya_iot_reg_get_wf_nw_stat_cb success");
 
     while (1)
     {

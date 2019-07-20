@@ -80,32 +80,15 @@ Note over Device: 设备执行重启sdk后，进入配网模式
 
 ```
 
-#### 初始化配网参数
+#### Smart配网模式说明
 
-```java
-protected ITuyaActivator mTuyaActivator; //集成配网具体实现接口
-```
-
-```java
-/**
-* @param token: 配网所需要的激活key。
-* @param ssid: 配网之后，设备工作WiFi的名称。（家庭网络）
-* @param password: 配网之后，设备工作WiFi的密码。（家庭网络）
-* @param activatorModel: 现在给设备配网有以下两种方式:
-ActivatorModelEnum.TY_EZ: 传入该参数则进行EZ配网
-ActivatorModelEnum.TY_AP: 传入该参数则进行AP配网
-* @param timeout: 配网的超时时间设置，默认是100s.
-* @param context: 需要传入activity的context.
-*/
-```
-
-#### EZ模式配网
+Smart配网需要网卡支持进入sniffer模式，捕获空气中的所有无线包，根据
 
 ```sequence
-Title: EZ 配网
+Title: Smart配网模式，tuya_sdk <-> 设备应用层数据链路
 
-participant APP
-participant SDK
+participant 手机APP
+participant tuya_sdk
 participant Device
 participant Service
 
