@@ -1,10 +1,10 @@
-### WiFi设备配网
+## WiFi设备配网
 
-#### 描述
+### 描述
 
 WiFi设备配网主要有EZ模式和AP模式两种, EZ配网模式需要设备wifi网卡支持sniffer模式。
 
-#### 配网模式设置
+### 配网模式选择
 
 SDK初始化时调用tuya_iot_wf_soc_dev_init接口start_mode参数设置
 
@@ -23,37 +23,8 @@ WF_START_SMART_FIRST: 同时支持ap和ez两种模式，默认为ez模式
 */
     tuya_iot_wf_soc_dev_init(cfg, start_mode,cbs,product_key,wf_sw_ver)
 ```
-
-#### AP配网模式说明
-
-SDK进入ap配网模式后接口调用流程图
-
-```sequence
-Title: 
-
-participant APP
-participant Device
-participant SDK
-participant 涂鸦云
-
-SDK->Device: hwl_wf_wk_mode_set(WWM_SOFTAP)
-SDK->Device: hwl_wf_ap_start
-APP-->SDK: 连接设备热点，广播{ssid,passwd,token}
-SDK->Device: hwl_wf_wk_mode_set(WWM_STATION)
-SDK->Device: hwl_wf_station_connect(ssid,passwd)
-Device-->SDK: return OPRT_OK
-SDK->Device: hwl_wf_station_stat_get
-Note over SDK: 每隔1s查询一次网络状态
-Device-->SDK: WSS_GOT_IP
-SDK -> 涂鸦云: 请求设备激活
-涂鸦云 --> SDK: 设备激活成功
-SDK->Device : __soc_dev_net_status_cb(STAT_CLOUD_CONN)\n通知设备配网成功
-```
-
-
-
-
 #### 设备重置
+
 
 ```c
 /*
@@ -80,9 +51,78 @@ Note over Device: 设备执行重启sdk后，进入配网模式
 
 ```
 
+### AP配网模式
+
+#### 接口实现说明
+
+##### hwl_wf_ap_start
+```c
+/***********************************************************
+*  Function: hwl_wf_ap_start
+*  Desc:     start a soft ap
+*  Input:    cfg: the soft ap config
+*  Return:   OPRT_OK: success  Other: fail
+*  Note:     Used for AP distribution network mode, tuya-sdk will call
+***********************************************************/
+OPERATE_RET hwl_wf_ap_start(IN CONST WF_AP_CFG_IF_S *cfg)
+{
+    PR_DEBUG("Start AP SSID:%s", cfg->ssid);
+    if(cfg->passwd != NULL){
+        PR_DEBUG("PASSWD:%s", cfg->passwd);
+    }
+    // UserTODO
+
+    return OPRT_OK;
+}
+```
+##### hwl_wf_ap_stop
+```c
+/***********************************************************
+*  Function: hwl_wf_ap_stop
+*  Desc:     stop a soft ap
+*  Return:   OPRT_OK: success  Other: fail
+*  Note:     Used for AP distribution network mode, 
+             tuya-sdk will call when it receives the distribution network of mobile phone to send message
+***********************************************************/
+OPERATE_RET hwl_wf_ap_stop(VOID)
+{
+    PR_DEBUG("Stop Ap Mode");
+    // UserTODO
+
+    return OPRT_OK;
+}
+```
+SDK进入ap配网模式后接口调用流程图
+
+#### AP配网数据链路图
+
+```sequence
+Title: 
+
+participant APP
+participant Device
+participant SDK
+participant 涂鸦云
+
+SDK->Device: hwl_wf_wk_mode_set(WWM_SOFTAP)
+SDK->Device: hwl_wf_ap_start
+APP-->SDK: 连接设备热点，广播{ssid,passwd,token}
+SDK->Device: hwl_wf_wk_mode_set(WWM_STATION)
+SDK->Device: hwl_wf_station_connect(ssid,passwd)
+Device-->SDK: return OPRT_OK
+SDK->Device: hwl_wf_station_stat_get
+Note over SDK: 每隔1s查询一次网络状态
+Device-->SDK: WSS_GOT_IP
+SDK -> 涂鸦云: 请求设备激活
+涂鸦云 --> SDK: 设备激活成功
+SDK->Device : __soc_dev_net_status_cb(STAT_CLOUD_CONN)\n通知设备配网成功
+```
+
 #### Smart配网模式说明
 
-Smart配网需要网卡支持进入sniffer模式，捕获空气中的所有无线包，根据
+Smart配网需要网卡支持进入sniffer模式，捕获空气中的所有无线包以获取手机APP广播的ssid,passwd,token配网信息；
+需要实现接口：
+tuya_iot_sdk/demo_soc_dev_wifi/tuya_iot_wifi_net.c
 
 ```sequence
 Title: Smart配网模式，tuya_sdk <-> 设备应用层数据链路
@@ -123,7 +163,120 @@ mTuyaActivator = TuyaHomeSdk.getActivatorInstance().newMultiActivator(new Activa
 .setListener(this));
 ```
 
-#### AP模式配网
+#### 其他公用接口
+
+##### hwl_wf_wk_mode_set
+```c
+/***********************************************************
+*  Function: hwl_wf_wk_mode_set
+*  Desc:     set wifi work mode
+*  Input:    mode: wifi work mode
+*  Return:   OPRT_OK: success  Other: fail
+*  Note:     用户需实现 station/ap/sniffer三种模式切换的实现，Smart配网模式下，需要支持切换sniffer模式
+*  Note:     配网过程需要切换工作模式时，tuya-sdk调用
+***********************************************************/
+OPERATE_RET hwl_wf_wk_mode_set(IN CONST WF_WK_MD_E mode)
+{
+    switch (mode)
+    {
+        case WWM_LOWPOWER:{
+            //linux系统不关心低功耗
+            break;
+        }
+        case WWM_SNIFFER:{
+            // UserTODO
+            break;
+        }
+        case WWM_STATION:{
+            // UserTODO
+            break;
+        }
+        case WWM_SOFTAP:{
+            // UserTODO
+            break;
+        }
+        case WWM_STATIONAP:{
+            //reserved
+            break;
+        }
+        default:{
+            break;
+        }
+    }
+
+    PR_DEBUG("WIFI Set Mode:%d", mode);
+    return OPRT_OK;
+}
+```
+
+##### hwl_wf_wk_mode_get
+```c
+/***********************************************************
+*  Function: hwl_wf_wk_mode_get
+*  Desc:     get wifi work mode
+*  Output:   mode: wifi work mode
+*  Return:   OPRT_OK: success  Other: fail
+***********************************************************/
+OPERATE_RET hwl_wf_wk_mode_get(OUT WF_WK_MD_E *mode)
+{
+    // UserTODO
+    *mode = ?;
+    return OPRT_OK;
+}
+```
+##### hwl_wf_station_stat_get
+```c
+/***********************************************************
+*  Function: hwl_wf_station_stat_get
+*  Desc:     get wifi station work status
+*  Output:   stat: the wifi station work status
+*  Return:   OPRT_OK: success  Other: fail
+*  Note:     User must tell tuya-sdk network status of the equipment with stat
+***********************************************************/
+OPERATE_RET hwl_wf_station_stat_get(OUT WF_STATION_STAT_E *stat)
+{
+    // UserTODO
+    if(1){ // If successful device to connect the network
+        *stat = WSS_GOT_IP;
+    }
+    else{
+        *stat = WSS_CONN_FAIL;
+    }
+    return OPRT_OK;
+}
+```
+##### hwl_wf_station_get_conn_ap_rssi
+```c
+/***********************************************************
+*  Function: hwl_wf_station_get_conn_ap_rssi
+*  Desc:     get wifi connect rssi
+*  Output:   rssi: the return rssi.
+*  Return:   OPRT_OK: success  Other: fail
+*  Note:     用于手机app上设备信息界面->信号强度的显示
+***********************************************************/
+OPERATE_RET hwl_wf_station_get_conn_ap_rssi(OUT SCHAR_T *rssi)
+{
+    // UserTODO
+    *rssi = ?;
+    return OPRT_OK;
+}
+```
+
+##### hwl_wf_station_disconnect
+```c
+/***********************************************************
+*  Function: hwl_wf_station_disconnect
+*  Desc:     disconnect wifi from connect ap
+*  Return:   OPRT_OK: success  Other: fail
+***********************************************************/
+OPERATE_RET hwl_wf_station_disconnect(VOID)
+{
+    PR_DEBUG("Disconnect WIFI Conn");
+    // UserTODO
+
+    return OPRT_OK;
+}
+```
 
 ```sequence
 Title: AP 配网
@@ -227,3 +380,9 @@ device_bind_success 设备绑定成功，但还未上线，此时设备处于离
 配网超时，此时设备已经激活成功。可能原因有：
 
 - APP没有连接到正常的网络，导致无法获取设备的状态。
+
+evolution-data-server gdm3 git git-man gnome-calendar gnome-control-center gnome-shell gnome-todo gstreamer1.0-gtk3 gvfs-backends kerneloops libcmis-0.5-5v5 libcurl3-gnutls libebackend-1.2-10
+libebook-1.2-19 libebook-contacts-1.2-2 libecal-1.2-19 libedata-book-1.2-25 libedata-cal-1.2-28 libedataserver-1.2-23 libedataserverui-1.2-2 liberror-perl libgdata22 liboauth0 libraptor2-0 librasqal3
+librdf0 libreoffice-avmedia-backend-gstreamer libreoffice-base-core libreoffice-calc libreoffice-core libreoffice-draw libreoffice-gnome libreoffice-gtk3 libreoffice-help-en-gb libreoffice-help-en-us
+libreoffice-help-zh-cn libreoffice-impress libreoffice-l10n-en-gb libreoffice-math libreoffice-ogltrans libreoffice-pdfimport libreoffice-writer network-manager
+network-manager-config-connectivity-ubuntu network-manager-gnome network-manager-pptp network-manager-pptp-gnome python3-uno shotwell transmission-gtk ubuntu-desktop ubuntu-session whoopsie

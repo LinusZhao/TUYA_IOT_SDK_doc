@@ -7,6 +7,7 @@
 #include "tuya_cloud_wifi_defs.h"
 #include "tuya_iot_wifi_api.h"
 #include "wifi_hwl.h"
+#include "user_cfg.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -19,19 +20,6 @@
 #ifndef USER_SW_VER
 #define USER_SW_VER         "1.2.3"
 #endif
-
-// 涂鸦云上的产品KEY，需登陆tuya.com创建产品分配唯一key
-#define PRODUCT_KEY         "2y8fs1j3lk6wddio"
-// SD本地配置存储路径，该路径必须对应一个可读写文件系统分区
-#define CFG_STORAGE_PATH    "./"
-// UUID和AUTHKEY用于涂鸦云设备的安全认证，每个设备所用key均为唯一
-#define UUID                "tuya985d5f5255e0342b"
-#define AUTHKEY             "xONNZA9yFvLZeEDQRh0CpaE2wAAKAZJT"
-// OTA文件本地保存绝对路径，SDK会自动进行OTA管理
-#define SOC_OTA_FILE        "/tmp/soc_upgrade.ota"
-
-extern WF_WK_MD_E wkMode;
-extern WF_STATION_STAT_E StationStat;
 
 GW_WIFI_NW_STAT_E gw_wifi_nw_stat = STAT_STA_CONN;
 
@@ -66,18 +54,18 @@ int main(void)
     PR_NOTICE("tuya_iot_init success");
 
     // 设置日志输出等级
-    op_ret = SetLogManageAttr(LOG_LEVEL_TRACE);
+    op_ret = SetLogManageAttr(LOG_LEVEL_SET);
     if(OPRT_OK != op_ret){
         PR_ERR("SetLogManageAttr op_ret is %d\n",op_ret);
-        return -1;
+        return -2;
     }
     PR_NOTICE("SetLogManageAttr success");
 
-    WF_GW_PROD_INFO_S prod_info = {UUID, AUTHKEY, NULL, NULL};
+    WF_GW_PROD_INFO_S prod_info = {UUID, AUTHKEY, AP_NAME, AP_PASSWD};
     op_ret = tuya_iot_set_wf_gw_prod_info(&prod_info);
     if(OPRT_OK != op_ret) {
         PR_ERR("tuya_iot_set_wf_gw_prod_info err:%d", op_ret);
-        return -2;
+        return -3;
     }
     PR_NOTICE("tuya_iot_set_wf_gw_prod_info success");
 
@@ -90,17 +78,17 @@ int main(void)
         __soc_dev_dp_query_cb,
         NULL,
     };
-    op_ret = tuya_iot_wf_soc_dev_init(GWCM_OLD, WF_START_AP_ONLY, &iot_cbs, PRODUCT_KEY, USER_SW_VER);
+    op_ret = tuya_iot_wf_soc_dev_init(GWCM_OLD, WF_CFG_MODE_SELECT, &iot_cbs, PRODUCT_KEY, USER_SW_VER);
     if(OPRT_OK != op_ret) {
         PR_ERR("tuya_iot_wf_soc_dev_init err:%d",op_ret);
-        return -3;
+        return -4;
     }
     PR_NOTICE("tuya_iot_wf_soc_dev_init success");
 
     op_ret = tuya_iot_reg_get_wf_nw_stat_cb(__soc_dev_net_status_cb);
     if(OPRT_OK != op_ret) {
         PR_ERR("tuya_iot_reg_get_wf_nw_stat_cb err:%d",op_ret);
-        return -4;
+        return -5;
     }
     PR_NOTICE("tuya_iot_reg_get_wf_nw_stat_cb success");
 
@@ -133,12 +121,11 @@ int main(void)
             }
             PR_DEBUG("tuya_iot_gw_wf_user_cfg success");
         }
-        else if(!strcmp(command,"station_stat")){
-            PCHAR_T stat = strsep(&p," ");
-            StationStat = atoi(stat);
-            PR_DEBUG("set StationStat is %d",StationStat);
-        }
-
+        // else if(!strcmp(command,"station_stat")){
+        //     PCHAR_T stat = strsep(&p," ");
+        //     StationStat = atoi(stat);
+        //     PR_DEBUG("set StationStat is %d",StationStat);
+        // }
 
         // test
         // if(gw_wifi_nw_stat == STAT_CLOUD_CONN){

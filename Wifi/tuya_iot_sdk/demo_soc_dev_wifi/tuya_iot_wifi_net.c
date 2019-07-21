@@ -1,5 +1,6 @@
 #include "wifi_hwl.h"
 #include "uni_log.h"
+#include "user_cfg.h"
 
 #include <net/if.h>
 #include <sys/types.h>
@@ -11,7 +12,6 @@
 #include <string.h>
 #include <unistd.h>
 
-#define COMPLIER_CHECK 
 // WIFI设备的名称
 //#define WLAN_DEV    "wlp3s0"
 #define WLAN_DEV    "ens33"
@@ -19,30 +19,54 @@
 // WIFI芯片是否是MTK7601
 //#define WIFI_CHIP_7601
 
-WF_WK_MD_E WkMode = WWM_SOFTAP;
-WF_STATION_STAT_E StationStat = WSS_CONN_SUCCESS;
+#define SYSTEM_SHELL_MAX_LEN        128
 
-// 使用指定SSID和PASSWD连接WIFI
-OPERATE_RET hwl_wf_station_connect(IN CONST CHAR_T *ssid,IN CONST CHAR_T *passwd)
+static int sys_shell(const char *fmt, ...)
 {
-    PR_DEBUG("STA Con AP ssid:%s passwd:%s", ssid, passwd);
+    int ret;
+    char cmd[SYSTEM_SHELL_MAX_LEN];
 
-    //最多阻塞10s
-    sleep(2);
-    // UserTODO
-    StationStat = WSS_GOT_IP;
-    return OPRT_OK;
-}
+    va_list ap;
+    va_start(ap, fmt);
+    vsnprintf(cmd, SYSTEM_SHELL_MAX_LEN, fmt, ap); 
+    va_end(ap);
 
+    cmd[SYSTEM_SHELL_MAX_LEN - 1] = '\0';
+    PR_DEBUG("sys_shell:%s",cmd);
+    ret = system(cmd);
+    if (ret == -1){
+        // 创建子进程失败
+        return -1;
+    }
+    if (!WIFEXITED(ret)){
+        // shell脚本执行错误
+        return -1;
+    }
+    // shell返回值
+    ret = WEXITSTATUS(ret);
 
-static void exec_cmd(char *pCmd)
-{
-    PR_DEBUG("Exec Cmd:%s", pCmd);
-    system(pCmd);
+    return ret;
 }
 
 /***********************************************************
-*  Function: 搜索附近无线网络的信息，
+*  Function: hwl_wf_station_connect
+*  Desc:     connect wifi with ssid and passwd.
+*  Input:    ssid && passwd, The router's wifi name and password
+*  Return:   OPRT_OK: success  Other: fail
+*  Note:     1. tuya-sdk will call when it receives the distribution network of mobile phone to send message
+             2. After equipment has distribution network successfully, the tuya-sdk after start-up called only once
+***********************************************************/
+OPERATE_RET hwl_wf_station_connect(IN CONST CHAR_T *ssid,IN CONST CHAR_T *passwd)
+{
+#ifdef COMPILE_CHECK
+        #error "Please implement the hwl_wf_station_connect function ?"
+#else
+    PR_DEBUG("STA Con AP ssid:%s passwd:%s", ssid, passwd);
+    // UserTODO
+    
+#endif
+    return OPRT_OK;
+}
 /***********************************************************
 *  Function: hwl_wf_all_ap_scan
 *  Desc:     scan current environment and obtain all the ap
@@ -50,23 +74,19 @@ static void exec_cmd(char *pCmd)
 *  Output:   ap_ary: current ap info array
 *  Output:   num   : the num of ar_ary
 *  Return:   OPRT_OK: success  Other: fail
-typedef struct
-{
-    BYTE_T channel;                 // AP channel
-    SCHAR_T rssi;                   // AP rssi
-    BYTE_T bssid[6];                // AP bssid
-    BYTE_T ssid[WIFI_SSID_LEN+1];   // AP ssid array
-    BYTE_T s_len;                   // AP ssid len
-}AP_IF_S;
-*  Return: OPERATE_RET
 ***********************************************************/
 #define MAX_AP_SEARCH 30
 OPERATE_RET hwl_wf_all_ap_scan(OUT AP_IF_S **ap_ary,OUT UINT_T *num)
 {
+#if (WF_CFG_MODE_SELECT != WF_START_AP_ONLY)
     static AP_IF_S s_aps[MAX_AP_SEARCH];
     memset(s_aps, 0, sizeof(s_aps));
     *ap_ary = s_aps;
     *num = 0;
+
+#ifdef COMPILE_CHECK
+     #error "Please check whether the system support iwlist ?"
+#else
 
     FILE *pp = popen("iwlist "WLAN_DEV" scan", "r");
     if(pp == NULL)
@@ -158,32 +178,7 @@ OPERATE_RET hwl_wf_all_ap_scan(OUT AP_IF_S **ap_ary,OUT UINT_T *num)
 
     pclose(pp);
     *num = recordIdx + 1;
-    #if 1
-        *num = 2;
-        BYTE_T *pTmp = s_aps[0].bssid;
-        pTmp[0] = 0xC8;
-        pTmp[1] = 0x94;
-        pTmp[2] = 0xBB;
-        pTmp[3] = 0x77;
-        pTmp[4] = 0x90;
-        pTmp[5] = 0x8C;
-        sprintf(s_aps[0].ssid,"%s","Doraemon3");
-        s_aps[0].channel = 1;
-        s_aps[0].rssi = -30;
-        s_aps[0].s_len = strlen(s_aps[0].ssid);
-
-        pTmp = s_aps[1].bssid;
-        pTmp[0] = 0xF4;
-        pTmp[1] = 0xEC;
-        pTmp[2] = 0x38;
-        pTmp[3] = 0x4F;
-        pTmp[4] = 0xD7;
-        pTmp[5] = 0x04;
-        sprintf(s_aps[0].ssid,"%s","OpenWrt-45");
-        s_aps[1].channel = 11;
-        s_aps[1].rssi = -80;
-        s_aps[1].s_len = strlen(s_aps[1].ssid);
-    #endif
+#endif
     int index = 0;
     for(index = 0; index < *num; index++)
     {
@@ -193,7 +188,7 @@ OPERATE_RET hwl_wf_all_ap_scan(OUT AP_IF_S **ap_ary,OUT UINT_T *num)
                 s_aps[index].bssid[4],  s_aps[index].bssid[5], s_aps[index].rssi, s_aps[index].ssid);
     }
     PR_DEBUG("WIFI Scan AP End");
-
+#endif
     return OPRT_OK;
 }
 
@@ -201,8 +196,6 @@ OPERATE_RET hwl_wf_all_ap_scan(OUT AP_IF_S **ap_ary,OUT UINT_T *num)
 OPERATE_RET hwl_wf_assign_ap_scan(IN CONST CHAR_T *ssid,OUT AP_IF_S **ap)
 {
     /* 这里简单处理，扫描所有ap后进行查找 */
-    PR_TRACE_ENTER();
-    PR_DEBUG("ssid:%s",ssid);
     AP_IF_S *pTotalAp = NULL;
     UINT_T tatalNum = 0;
     int index = 0;
@@ -216,7 +209,6 @@ OPERATE_RET hwl_wf_assign_ap_scan(IN CONST CHAR_T *ssid,OUT AP_IF_S **ap)
             break;
         }
     }
-    PR_TRACE_LEAVE();
     return OPRT_OK;
 }
 
@@ -228,72 +220,70 @@ OPERATE_RET hwl_wf_release_ap(IN AP_IF_S *ap)
 
 static int s_curr_channel = 1;
 /***********************************************************
-*  Function: 设置WIFI的工作信道
+*  Function: hwl_wf_set_cur_channel
 *  Desc:     set wifi interface work channel
 *  Input:    chan: the channel to set
 *  Return:   OPRT_OK: success  Other: fail
-*  Note:    Smart配网模式时，SDK获取周围wifi信道信息后调用，循环切换信道
+*  Note:     Smart distribution network mode, the tuya-sdk calls, switching channels to capture the message in the air
 ***********************************************************/
 OPERATE_RET hwl_wf_set_cur_channel(IN CONST BYTE_T chan)
 {
     PR_DEBUG("WIFI Set Channel:%d", chan);
-    // UserTODO Start
-    {
-        // #error "please check hwl_wf_set_cur_channel"
-        // char tmpCmd[100] = {0};
-        // snprintf(tmpCmd, 100, "iwconfig %s channel %d", WLAN_DEV, chan);
-        // exec_cmd(tmpCmd);
-    }
-    // UserTODO End
-    s_curr_channel = chan;
+#if (WF_CFG_MODE_SELECT != WF_START_AP_ONLY)
+#ifdef COMPILE_CHECK
+     #error "Please check whether the hwl_wf_set_cur_channel function is suitable for your device ?"
+#else
+    sys_shell("iwconfig %s channel %d", WLAN_DEV, chan);
+#endif
 
+    s_curr_channel = chan;
 #ifdef WIFI_CHIP_7601
     tuya_linux_wf_wk_mode_set(WWM_SNIFFER);
+#endif
 #endif
     return OPRT_OK;
 }
 /***********************************************************
-*  Function: 获取WIFI的工作信道
+*  Function: hwl_wf_get_cur_channel
 *  Desc:     get wifi interface work channel
 *  Input:    chan: the channel wifi works
 *  Return:   OPRT_OK: success  Other: fail
 ***********************************************************/
 OPERATE_RET hwl_wf_get_cur_channel(OUT BYTE_T *chan)
 {
-    // UserTODO Start
+#if (WF_CFG_MODE_SELECT != WF_START_AP_ONLY)
+#ifdef COMPILE_CHECK
+    #error "Please check whether the hwl_wf_get_cur_channel function is suitable for your device ?"
+#else
+    FILE *pp = popen("iwlist "WLAN_DEV" channel", "r");
+    if(pp == NULL)
+        return OPRT_COM_ERROR;
+
+    char tmp[128] = {0};
+    memset(tmp, 0, sizeof(tmp));
+    while (fgets(tmp, sizeof(tmp), pp) != NULL)
     {
-        // #error "please check hwl_wf_get_cur_channel"
-    // 如下为参考实现，请根据设备系统检查～
-        FILE *pp = popen("iwlist "WLAN_DEV" channel", "r");
-
-        if(pp == NULL)
-            return OPRT_COM_ERROR;
-
-        char tmp[128] = {0};
-        memset(tmp, 0, sizeof(tmp));
-        while (fgets(tmp, sizeof(tmp), pp) != NULL)
-        {
-            char *pIPStart = strstr(tmp, " (Channel ");
-            if(pIPStart != NULL)
-                break;
-        }
-
-        /* 查找channel	*/
-        char *pCHANNELStart = strstr(tmp, " (Channel ");
-        if(pCHANNELStart != NULL)
-        {
-            int x = 0;
-            sscanf(pCHANNELStart + strlen(" (Channel "), "%d", &x);
-            *chan = x;
-        }else
-        {
-            *chan = s_curr_channel;
-        }
-        pclose(pp);
+        char *pIPStart = strstr(tmp, " (Channel ");
+        if(pIPStart != NULL)
+            break;
     }
-    // UserTODO End
+
+    /* 查找channel	*/
+    char *pCHANNELStart = strstr(tmp, " (Channel ");
+    if(pCHANNELStart != NULL)
+    {
+        int x = 0;
+        sscanf(pCHANNELStart + strlen(" (Channel "), "%d", &x);
+        *chan = x;
+    }else
+    {
+        *chan = s_curr_channel;
+    }
+    pclose(pp);
+#endif
 
     PR_DEBUG("WIFI Get Curr Channel:%d", *chan);
+#endif
     return OPRT_OK;
 }
 
@@ -302,6 +292,7 @@ OPERATE_RET hwl_wf_get_cur_channel(OUT BYTE_T *chan)
  *  Note:     Smart配网模式时，tuya_sdk自动调用，无需应用层调用
  *  Return:   NULL
  */
+#if (WF_CFG_MODE_SELECT != WF_START_AP_ONLY)
 #pragma pack(1)
 /* http://www.radiotap.org/  */
 typedef struct {
@@ -378,7 +369,7 @@ static void * func_Sniffer(void *pReserved)
     PR_DEBUG("Sniffer Proc Finish");
     return (void *)0;
 }
-
+#endif
 /*
  *  Function: hwl_wf_sniffer_set 设置WIFI的sniffer抓包状态
  *  Param:    en,开启或结束抓包线程
@@ -391,7 +382,7 @@ static void * func_Sniffer(void *pReserved)
 static pthread_t sniffer_thId; // 抓包线程ID
 OPERATE_RET hwl_wf_sniffer_set(IN CONST BOOL_T en,IN CONST SNIFFER_CALLBACK cb)
 {
-    PR_DEBUG("cb:%s",cb);
+#if (WF_CFG_MODE_SELECT != WF_START_AP_ONLY)
     if(en == TRUE)
     {
         PR_DEBUG("Enable Sniffer");
@@ -406,18 +397,22 @@ OPERATE_RET hwl_wf_sniffer_set(IN CONST BOOL_T en,IN CONST SNIFFER_CALLBACK cb)
         pthread_join(sniffer_thId, NULL);
         hwl_wf_wk_mode_set(WWM_STATION);
     }
+#endif
     return OPRT_OK;
 }
-
-/*  
- *  Function: hwl_wf_get_ip 获取WIFI的IP地址
- *  Param:    wf,网卡工作模式，station or ap
- *  Param:    ip,user should send ip to tuya_sdk by this param
- *  Note:     
- *  Return:   OPERATE_RET
- */ 
+/***********************************************************
+*  Function: hwl_wf_get_ip
+*  Desc:     get wifi ip info.when wifi works in
+*            ap+station mode, wifi has two ips.
+*  Input:    wf: wifi function type
+*  Output:   ip: the ip addr info
+*  Return:   OPRT_OK: success  Other: fail
+***********************************************************/
 OPERATE_RET hwl_wf_get_ip(IN CONST WF_IF_E wf,OUT NW_IP_S *ip)
 {
+#ifdef COMPILE_CHECK
+        #error "Please check whether the hwl_wf_get_ip function is suitable for your device ?"
+#else
     FILE *pp = popen("ifconfig "WLAN_DEV, "r");
     if(pp == NULL){
         PR_ERR("hwl_wf_get_ip");
@@ -448,20 +443,25 @@ OPERATE_RET hwl_wf_get_ip(IN CONST WF_IF_E wf,OUT NW_IP_S *ip)
         sscanf(pMASKStart + strlen("netmask "), "%s", ip->mask);
 
     pclose(pp);
-
+#endif
+    
     PR_DEBUG("WIFI Get IP:%s", ip->ip);
     return OPRT_OK;
 }
- 
-/*  
- *  Function: hwl_wf_get_mac 获取WIFI的MAC地址
- *  Param:    wf,网卡工作模式，station or ap
- *  Param:    mac,user should send mac to tuya_sdk by this param
- *  Note:     此mac地址不是涂鸦智能手机app上设备信息显示的mac
- *  Return:   OPERATE_RET
- */
+/***********************************************************
+*  Function: hwl_wf_get_mac
+*  Desc:     get wifi mac info.when wifi works in
+*            ap+station mode, wifi has two macs.
+*  Input:    wf: wifi function type
+*  Output:   mac: the mac info
+*  Return:   OPRT_OK: success  Other: fail
+*  Note:     此mac地址不是涂鸦智能手机app上设备信息显示的mac,目前仅用于ap配网模式下，默认热点名称的后四位
+***********************************************************/
 OPERATE_RET hwl_wf_get_mac(IN CONST WF_IF_E wf,INOUT NW_MAC_S *mac)
 {
+#ifdef COMPILE_CHECK
+        #error "Please check whether the hwl_wf_get_mac function is suitable for your device ?"
+#else
     FILE *pp = popen("ifconfig "WLAN_DEV, "r");
     if(pp == NULL)
        return OPRT_COM_ERROR;
@@ -486,7 +486,7 @@ OPERATE_RET hwl_wf_get_mac(IN CONST WF_IF_E wf,INOUT NW_MAC_S *mac)
         }
     }
     pclose(pp);
-
+#endif
     PR_DEBUG("WIFI Get MAC %02X-%02X-%02X-%02X-%02X-%02X", mac->mac[0],mac->mac[1],mac->mac[2],mac->mac[3],mac->mac[4],mac->mac[5]);
     return OPRT_OK;
 }
@@ -497,72 +497,229 @@ OPERATE_RET hwl_wf_set_mac(IN CONST WF_IF_E wf,IN CONST NW_MAC_S *mac)
     return OPRT_OK;
 }
 
-/*  
- *  Function: hwl_wf_wk_mode_set 设置当前WIFI工作模式
- *  Param:    mode,WIFI工作模式，
- *  Note:     配网过程需要切换工作模式时，tuya_sdk调用
- *  Return:   OPERATE_RET
- */
+/***********************************************************
+*  Function: hwl_wf_wk_mode_set
+*  Desc:     set wifi work mode
+*  Input:    mode: wifi work mode
+*  Return:   OPRT_OK: success  Other: fail
+*  Note:     用户需实现 station/ap/sniffer三种模式切换的实现，Smart配网模式下，需要支持切换sniffer模式
+*  Note:     配网过程需要切换工作模式时，tuya-sdk调用
+***********************************************************/
 OPERATE_RET hwl_wf_wk_mode_set(IN CONST WF_WK_MD_E mode)
 {
-    WkMode = mode;
+#ifdef COMPILE_CHECK
+        #error "Please check whether the hwl_wf_wk_mode_set function is suitable for your device ?"
+#else
+    sys_shell("ifconfig %s up", WLAN_DEV);
+    switch (mode)
+    {
+        case WWM_LOWPOWER:
+        {
+            //linux系统不关心低功耗
+            break;
+        }
+        case WWM_SNIFFER:
+        {
+#ifndef WIFI_CHIP_7601
+            sys_shell("ifconfig %s down", WLAN_DEV);
+#endif
+            sys_shell("iwconfig %s mode Monitor", WLAN_DEV);
+#ifndef WIFI_CHIP_7601
+            sys_shell("ifconfig %s up", WLAN_DEV);
+#endif
+            break;
+        }
+        case WWM_STATION:
+        {
+#ifndef WIFI_CHIP_7601
+            sys_shell("ifconfig %s down", WLAN_DEV);
+#endif
+            sys_shell("iwconfig %s mode Managed", WLAN_DEV);
+#ifndef WIFI_CHIP_7601
+            sys_shell("ifconfig %s up", WLAN_DEV);
+#endif
+            break;
+        }
+        case WWM_SOFTAP:
+        {
+#ifndef WIFI_CHIP_7601
+            sys_shell("ifconfig %s down", WLAN_DEV);
+#endif
+            sys_shell("iwconfig %s mode Master", WLAN_DEV);
+#ifndef WIFI_CHIP_7601
+            sys_shell("ifconfig %s up", WLAN_DEV);
+#endif
+            break;
+        }
+        case WWM_STATIONAP:
+        {//reserved
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
+#endif
     PR_DEBUG("WIFI Set Mode:%d", mode);
     return OPRT_OK;
 }
-
-/*  
- *  Function: hwl_wf_wk_mode_get 获取当前WIFI工作模式
- *  Param:    mode,WIFI工作模式，user should send wifi work mode to tuya_sdk by this param
- *  Note:     需要获取WIFI工作模式时，tuya_sdk调用
- *  Return:   OPERATE_RET
- */
+/***********************************************************
+*  Function: hwl_wf_wk_mode_get
+*  Desc:     get wifi work mode
+*  Output:   mode: wifi work mode
+*  Return:   OPRT_OK: success  Other: fail
+***********************************************************/
 OPERATE_RET hwl_wf_wk_mode_get(OUT WF_WK_MD_E *mode)
 {
-    *mode = WkMode;
+#ifdef COMPILE_CHECK
+        #error "Please check whether the hwl_wf_wk_mode_get function is suitable for your device ?"
+#else
+    *mode = WWM_STATION;
+    FILE *pp = popen("iwconfig "WLAN_DEV, "r");
+    if(pp == NULL)
+        return OPRT_OK;
+
+    char scan_mode[10] = {0};
+    char tmp[256] = {0};
+    while (fgets(tmp, sizeof(tmp), pp) != NULL)
+    {
+        char *pModeStart = strstr(tmp, "Mode:");
+        if(pModeStart != NULL)
+        {
+            int x1,x2,x3,x4,x5,x6;
+            sscanf(pModeStart + strlen("Mode:"), "%s ", scan_mode);
+            break;
+        }
+    }
+    pclose(pp);
+
+    *mode = WWM_STATION;
+    if(strncasecmp(scan_mode, "Managed", strlen("Managed")) == 0)
+        *mode = WWM_STATION;
+    if(strncasecmp(scan_mode, "Master", strlen("Master")) == 0)
+        *mode = WWM_SOFTAP;
+    if(strncasecmp(scan_mode, "Monitor", strlen("Monitor")) == 0)
+        *mode = WWM_SNIFFER;
+#endif
+
     PR_DEBUG("WIFI Get Mode:%d", *mode);
     return OPRT_OK;
 }
-
-// 断开当前WIFI网络的连接
+/***********************************************************
+*  Function: hwl_wf_station_disconnect
+*  Desc:     disconnect wifi from connect ap
+*  Return:   OPRT_OK: success  Other: fail
+***********************************************************/
 OPERATE_RET hwl_wf_station_disconnect(VOID)
 {
+#ifdef COMPILE_CHECK
+        #error "Please implement the hwl_wf_station_disconnect function ?"
+#else
     PR_DEBUG("Disconnect WIFI Conn");
     // UserTODO
+
+#endif
     return OPRT_OK;
 }
-
-// 获取当前WIFI联网的RSSI
+/***********************************************************
+*  Function: hwl_wf_station_get_conn_ap_rssi
+*  Desc:     get wifi connect rssi
+*  Output:   rssi: the return rssi.
+*  Return:   OPRT_OK: success  Other: fail
+***********************************************************/
 OPERATE_RET hwl_wf_station_get_conn_ap_rssi(OUT SCHAR_T *rssi)
 {
-    *rssi = 99;
+#ifdef COMPILE_CHECK
+        #error "Please check whether the hwl_wf_wk_mode_get function is suitable for your device ?"
+#else
+    *rssi = 0;
+    FILE *pp = popen("iwconfig "WLAN_DEV, "r");
+    if(pp == NULL)
+        return OPRT_COM_ERROR;
 
+    char tmp[128] = {0};
+    while (fgets(tmp, sizeof(tmp), pp) != NULL)
+    {
+        /* 查找signal  */
+        char *pSIGNALStart = strstr(tmp, "Quality=");
+        if(pSIGNALStart != NULL)
+        {
+            int x = 0;
+            int y = 0;
+            sscanf(pSIGNALStart + strlen("Quality="), "%d/%d",&x,&y);
+            *rssi = x * 100/ (y+1);
+            break;
+        }
+    }
+    pclose(pp);
+#endif
     PR_DEBUG("Get Conn AP RSSI:%d", *rssi);
     return OPRT_OK;
 }
 
-// 获取当前WIFI联网状态
+/***********************************************************
+*  Function: hwl_wf_station_stat_get
+*  Desc:     get wifi station work status
+*  Output:   stat: the wifi station work status
+*  Return:   OPRT_OK: success  Other: fail
+*  Note:     User must tell tuya-sdk network status of the equipment with stat
+***********************************************************/
 OPERATE_RET hwl_wf_station_stat_get(OUT WF_STATION_STAT_E *stat)
 {
-    *stat = StationStat;
+#ifdef COMPILE_CHECK
+        #error "Please implement the hwl_wf_wk_mode_get function ?"
+#else
     // UserTODO
-
-    // PR_DEBUG("Curr WIFI Stat:%d", *stat);
+    if(1){ // If successful device to connect the network
+        *stat = WSS_GOT_IP;
+    }
+    else{
+        *stat = WSS_CONN_FAIL;
+    }
+#endif
+    static WF_STATION_STAT_E previousStat = WSS_CONN_FAIL;
+    if(previousStat != *stat){
+        PR_DEBUG("Curr WIFI Stat change:%d", *stat);
+    }
+    previousStat = *stat;
     return OPRT_OK;
 }
-
-// AP配网模式下开启热点
+/***********************************************************
+*  Function: hwl_wf_ap_start
+*  Desc:     start a soft ap
+*  Input:    cfg: the soft ap config
+*  Return:   OPRT_OK: success  Other: fail
+*  Note:     Used for AP distribution network mode, tuya-sdk will call
+***********************************************************/
 OPERATE_RET hwl_wf_ap_start(IN CONST WF_AP_CFG_IF_S *cfg)
 {
+#ifdef COMPILE_CHECK
+        #error "Please implement the hwl_wf_ap_start function ?"
+#else
     PR_DEBUG("Start AP SSID:%s", cfg->ssid);
+    if(cfg->passwd != NULL){
+        PR_DEBUG("PASSWD:%s", cfg->passwd);
+    }
     // UserTODO
+#endif
     return OPRT_OK;
 }
-
-// AP配网模式下停止热点
+/***********************************************************
+*  Function: hwl_wf_ap_stop
+*  Desc:     stop a soft ap
+*  Return:   OPRT_OK: success  Other: fail
+*  Note:     Used for AP distribution network mode, 
+             tuya-sdk will call when it receives the distribution network of mobile phone to send message
+***********************************************************/
 OPERATE_RET hwl_wf_ap_stop(VOID)
 {
+#ifdef COMPILE_CHECK
+        #error "Please implement the hwl_wf_ap_start function ?"
+#else
     PR_DEBUG("Stop Ap Mode");
     // UserTODO
+#endif
     return OPRT_OK;
 }
 
