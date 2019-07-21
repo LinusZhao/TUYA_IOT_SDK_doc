@@ -26,31 +26,31 @@ participant 涂鸦云
 participant APP
 
 涂鸦云->GW_SDK: 通知固件升级
-GW_SDK -> 应用层: callback __dev_ug_inform_cb
-应用层 --> 应用层: call tuya_iot_upgrade_dev_notify
+GW_SDK->应用层: callback __dev_ug_inform_cb
+应用层-->应用层: call tuya_iot_upgrade_dev_notify
 Note over 应用层: 启动升级线程，关闭下发通道
-GW_SDK -> 涂鸦云: 更新设备升级状态为升级中
-涂鸦云 --> GW_SDK: success
-GW_SDK -> 涂鸦云: 下载固件包
-涂鸦云 --> GW_SDK:
-GW_SDK -> 应用层: __get_file_data_cb
-应用层 --> GW_SDK: return OK
+GW_SDK->涂鸦云: 更新设备升级状态为升级中
+涂鸦云-->GW_SDK: success
+GW_SDK->涂鸦云: 下载固件包
+涂鸦云-->GW_SDK:
+GW_SDK->应用层: __get_file_data_cb
+应用层-->GW_SDK: return OK
 Note over GW_SDK: 继续下载...
-GW_SDK -> 应用层: __upgrade_notify_cb下载完成
+GW_SDK->应用层: __upgrade_notify_cb下载完成
 Note over GW_SDK: 删除升级线程，开启下发通道
-应用层 -> 子设备: 发送固件包
-子设备 --> 应用层: return OK
-应用层 -> GW_SDK:上报进度tuya_iot_dev_upgd_progress_rept
-GW_SDK -> 涂鸦云: 推送mq进度
-涂鸦云 --> GW_SDK:ACK
-GW_SDK --> 应用层:return OK
-涂鸦云 -> APP:
-APP --> APP:显示进度
-应用层 --> 应用层: 继续发送固件包
-应用层 -> GW_SDK:发送完成tuya_iot_gw_subdevice_update
-GW_SDK -> 涂鸦云:更新子设备固件版本号
-涂鸦云 --> 涂鸦云: 更新设备升级状态为升级成功
-涂鸦云 -> APP:推送子设备升级成功消息
+应用层->子设备: 发送固件包
+子设备-->应用层: return OK
+应用层->GW_SDK:上报进度tuya_iot_dev_upgd_progress_rept
+GW_SDK->涂鸦云: 推送mq进度
+涂鸦云-->GW_SDK:ACK
+GW_SDK-->应用层:return OK
+涂鸦云->APP:
+APP-->APP:显示进度
+应用层-->应用层: 继续发送固件包
+应用层->GW_SDK:发送完成tuya_iot_gw_subdevice_update
+GW_SDK->涂鸦云:更新子设备固件版本号
+涂鸦云-->涂鸦云: 更新设备升级状态为升级成功
+涂鸦云->APP:推送子设备升级成功消息
 ```
 2. 接口说明
 

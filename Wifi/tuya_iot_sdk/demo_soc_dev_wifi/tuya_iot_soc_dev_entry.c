@@ -281,7 +281,18 @@ VOID __soc_dev_raw_dp_cmd_cb(IN CONST TY_RECV_RAW_DP_S *dp)
 VOID __soc_dev_reset_req_cb(GW_RESET_TYPE_E type)
 {
     PR_DEBUG("SOC Rev Reset Req %d", type);
-
+    GW_WF_NWC_FAST_STAT_T wf_nwc_fast_stat;
+    OPERATE_RET op_ret = tuya_iot_wf_fast_get_nc_type(&wf_nwc_fast_stat);
+    if(OPRT_OK != op_ret) {
+        PR_ERR("tuya_iot_wf_fast_get_nc_type op_ret:%d",op_ret);
+    }
+    if(wf_nwc_fast_stat == GWNS_FAST_UNCFG_SMC){
+        PR_DEBUG("tuya-sdk is in Smart distribution mode");
+    }
+    else if(wf_nwc_fast_stat == GWNS_FAST_UNCFG_AP){
+        PR_DEBUG("tuya-sdk is in AP distribution mode");
+    }
+    
     //User TODO
 }
 

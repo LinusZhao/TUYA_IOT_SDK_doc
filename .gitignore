@@ -3,3 +3,5 @@
 *.db
 *.db_bak
 output/
+_book/
+node_modules/
