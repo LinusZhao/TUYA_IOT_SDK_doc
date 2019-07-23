@@ -2,6 +2,6 @@
 
 ---
 
-* [English](https://LinusZhao.github.io/TUYA_ROUTER_GW_SDK_doc/en/)
+* [English](https://LinusZhao.github.io/TUYA_IOT_SDK_doc/en/)
 
-* [简体中文](https://LinusZhao.github.io/TUYA_ROUTER_GW_SDK_doc/zh-hans/)
+* [简体中文](https://LinusZhao.github.io/TUYA_IOT_SDK_doc/zh-hans/)
