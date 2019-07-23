@@ -1,0 +1,22 @@
+{
+  "plugins": [
+    "js-sequence-diagram-full@>=0.3.1",
+    "prism",
+    "-highlight",
+    "anchors",
+    "plantuml"
+  ],
+  "pluginsConfig": {
+    "prism": {
+      "css": [
+        "prismjs/themes/prism-okaidia.css"
+      ],
+      "lang": {
+        "java": "java"
+      },
+      "ignore": [
+        "sequence"
+      ]
+    }
+  }
+}
