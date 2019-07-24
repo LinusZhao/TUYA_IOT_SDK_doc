@@ -1,0 +1,511 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>设备配网 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-plantuml/test.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="07-ap_active.html" />
+    
+    
+    <link rel="prev" href="05-device_init.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    前言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="01-Scope.html">
+            
+                <a href="01-Scope.html">
+            
+                    
+                    适用范围
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    开发准备
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="02-New_product.html">
+            
+                <a href="02-New_product.html">
+            
+                    
+                    创建产品
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="03-init.html">
+            
+                <a href="03-init.html">
+            
+                    
+                    初始化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="04-sdk_init.html">
+            
+                <a href="04-sdk_init.html">
+            
+                    
+                    SDK初始化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="05-device_init.html">
+            
+                <a href="05-device_init.html">
+            
+                    
+                    设备初始化
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5" data-path="06-wifi_active.html">
+            
+                <a href="06-wifi_active.html">
+            
+                    
+                    设备配网
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="07-ap_active.html">
+            
+                <a href="07-ap_active.html">
+            
+                    
+                    AP配网
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="08-smart_active.html">
+            
+                <a href="08-smart_active.html">
+            
+                    
+                    Smart配网
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="09-other_active.html">
+            
+                <a href="09-other_active.html">
+            
+                    
+                    其他方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                    [固件升级]
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >设备配网</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="wifi&#x8BBE;&#x5907;&#x914D;&#x7F51;"><a name="wifi&#x8BBE;&#x5907;&#x914D;&#x7F51;" class="plugin-anchor" href="#wifi&#x8BBE;&#x5907;&#x914D;&#x7F51;"><i class="fa fa-link" aria-hidden="true"></i></a>WiFi&#x8BBE;&#x5907;&#x914D;&#x7F51;</h2>
+<h3 id="wifi&#x914D;&#x7F51;&#x652F;&#x6301;&#x6A21;&#x5F0F;&#x9009;&#x62E9;"><a name="wifi&#x914D;&#x7F51;&#x652F;&#x6301;&#x6A21;&#x5F0F;&#x9009;&#x62E9;" class="plugin-anchor" href="#wifi&#x914D;&#x7F51;&#x652F;&#x6301;&#x6A21;&#x5F0F;&#x9009;&#x62E9;"><i class="fa fa-link" aria-hidden="true"></i></a>wifi&#x914D;&#x7F51;&#x652F;&#x6301;&#x6A21;&#x5F0F;&#x9009;&#x62E9;</h3>
+<p>WiFi&#x8BBE;&#x5907;&#x914D;&#x7F51;&#x4E3B;&#x8981;&#x6709;Smart&#x6A21;&#x5F0F;&#x548C;AP&#x6A21;&#x5F0F;&#x4E24;&#x79CD;, Smart&#x914D;&#x7F51;&#x6A21;&#x5F0F;&#x9700;&#x8981;&#x8BBE;&#x5907;wifi&#x7F51;&#x5361;&#x652F;&#x6301;sniffer&#x6A21;&#x5F0F;&#x3002;</p>
+<p>&#x7528;&#x6237;&#x901A;&#x8FC7;&#x8BBE;&#x7F6E; tuya_iot_sdk/demo_soc_dev_wifi/user_cfg.h &#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x5B8F;WF_CFG_MODE_SELECT&#x6765;&#x9009;&#x62E9;&#xFF1A;</p>
+<p>WF_CFG_MODE_SELECT&#x53EF;&#x9009;&#x53C2;&#x6570;&#x8BF4;&#x660E;:</p>
+<ul>
+<li>WF_START_AP_ONLY: &#x53EA;&#x652F;&#x6301;AP&#x914D;&#x7F51;&#x6A21;&#x5F0F;</li>
+<li>WF_START_SMART_ONLY: &#x53EA;&#x652F;&#x6301;Smart&#x914D;&#x7F51;&#x6A21;&#x5F0F;</li>
+<li>WF_START_AP_FIRST: &#x540C;&#x65F6;&#x652F;&#x6301;AP&#x548C;Smart&#x4E24;&#x79CD;&#x6A21;&#x5F0F;&#xFF0C;&#x914D;&#x7F51;&#x6210;&#x529F;&#x540E;&#x91CD;&#x7F6E;&#x8FDB;&#x5165;AP&#x6A21;&#x5F0F;</li>
+<li>WF_START_SMART_FIRST: &#x540C;&#x65F6;&#x652F;&#x6301;AP&#x548C;Smart&#x4E24;&#x79CD;&#x6A21;&#x5F0F;&#xFF0C;&#x914D;&#x7F51;&#x6210;&#x529F;&#x540E;&#x91CD;&#x7F6E;&#x8FDB;&#x5165;Smart&#x6A21;&#x5F0F;</li>
+</ul>
+<h3 id="&#x8BBE;&#x5907;&#x91CD;&#x7F6E;"><a name="&#x8BBE;&#x5907;&#x91CD;&#x7F6E;" class="plugin-anchor" href="#&#x8BBE;&#x5907;&#x91CD;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x8BBE;&#x5907;&#x91CD;&#x7F6E;</h3>
+<h4 id="tuyaiotwfgwunactive"><a name="tuyaiotwfgwunactive" class="plugin-anchor" href="#tuyaiotwfgwunactive"><i class="fa fa-link" aria-hidden="true"></i></a>tuya_iot_wf_gw_unactive</h4>
+<pre class="language-"><code class="lang-c"><span class="token comment">/***********************************************************
+*  Function: tuya_iot_wf_gw_unactive
+*  Return:   OPRT_OK: success  Other: fail
+*  Desc:     Remove device from tuya cloud
+***********************************************************/</span>
+OPERATE_RET <span class="token function">tuya_iot_wf_gw_unactive</span><span class="token punctuation">(</span>VOID<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>In the following cases, the user should call tuya_iot_wf_gw_unactive:</p>
+<ol>
+<li>The device is not registered to tuya cloud, you need to switch to the distribution network mode AP or Smart.</li>
+<li>The device has been registered to tuya cloud, you need to remove and re-registered to another user.</li>
+</ol>
+<pre class="language-"><code class="lang-c"><span class="token comment">/***********************************************************
+*  Function: tuya_iot_wf_fast_get_nc_type
+*  Input:    nc_type
+*  Desc:     get wifi-config fast status from tuya-sdk
+*  Return:   OPRT_OK: success  Other: fail
+***********************************************************/</span>
+OPERATE_RET <span class="token function">tuya_iot_wf_fast_get_nc_type</span><span class="token punctuation">(</span>GW_WF_NWC_FAST_STAT_T <span class="token operator">*</span>nc_type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//Using the instance</span>
+GW_WF_NWC_FAST_STAT_T wf_nwc_fast_stat<span class="token punctuation">;</span>
+OPERATE_RET op_ret <span class="token operator">=</span> <span class="token function">tuya_iot_wf_fast_get_nc_type</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>wf_nwc_fast_stat<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span>OPRT_OK <span class="token operator">!=</span> op_ret<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">PR_ERR</span><span class="token punctuation">(</span><span class="token string">&quot;tuya_iot_wf_fast_get_nc_type op_ret:%d&quot;</span><span class="token punctuation">,</span>op_ret<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span>wf_nwc_fast_stat <span class="token operator">==</span> GWNS_FAST_UNCFG_SMC<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">// tuya-sdk is in Smart distribution mode</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>wf_nwc_fast_stat <span class="token operator">==</span> GWNS_FAST_UNCFG_AP<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">// tuya-sdk is in AP distribution mode</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>In the following cases, the user should call tuya_iot_wf_fast_get_nc_type:</p>
+<ol>
+<li><p>&#x505A;&#x914D;&#x7F51;LED&#x95EA;&#x70C1;&#xFF0C;&#x4EE5;&#x8868;&#x660E;&#x8BBE;&#x5907;&#x5904;&#x4E8E;AP&#x914D;&#x7F51;&#x6A21;&#x5F0F;&#x8FD8;&#x662F;Smart&#x914D;&#x7F51;&#x6A21;&#x5F0F;&#xFF1B;</p>
+<p>Do the distribution network LED flashing to indicate whether the device is in AP or Smart mode.</p>
+</li>
+</ol>
+<p>&#x914D;&#x7F51;&#x6A21;&#x5F0F;&#x5207;&#x6362;&#x8BF4;&#x660E;&#xFF1A;</p>
+<ol>
+<li>If macro WF_CFG_MODE_SELECT is equal to WF_START_AP_ONLY, user call tuya_iot_wf_gw_unactive, tuya-sdk enter AP distribution mode.</li>
+<li>If macro WF_CFG_MODE_SELECT is equal to WF_START_SMART_ONLY, user call tuya_iot_wf_gw_unactive, tuya-sdk enter Smart distribution mode.</li>
+<li>If macro WF_CFG_MODE_SELECT is equal to WF_START_AP_FIRST, When the device is registered to tuya-cloud, the user first calls tuya_iot_wf_gw_unactive,  tuya-sdk enters AP distribution mode; the second time call it,  tuya-sdk enter Smart mode;such cyclic switching&#x2026;&#x2026;</li>
+<li><p>If macro WF_CFG_MODE_SELECT is equal to WF_START_SMART_FIRST, When the device is registered to tuya-cloud, the user first calls tuya_iot_wf_gw_unactive,  tuya-sdk enters Smart distribution mode; the second time call it,  tuya-sdk enter AP mode;such cyclic switching&#x2026;&#x2026;</p>
+</li>
+<li><p>&#x8BBE;&#x5907;&#x8FDB;&#x5165;&#x914D;&#x7F51;&#x6A21;&#x5F0F;&#x6D41;&#x7A0B;</p>
+</li>
+</ol>
+<pre class="language-"><code class="lang-sequence">Title: 
+
+participant Device
+participant tuya_sdk
+
+Device-&gt;tuya_sdk: call tuya_iot_wf_gw_unactive
+tuya_sdk--&gt;Device: return OPRT_OK
+tuya_sdk-&gt;Device: callback __soc_dev_reset_req_cb
+Device-&gt;tuya_sdk: restarts tuya_sdk process
+tuya_sdk--&gt;Device: enters the distribution mode.
+Device-&gt;tuya_sdk: call tuya_iot_wf_fast_get_nc_type
+tuya_sdk--&gt;Device: return OPRT_OK
+Device--&gt;Device: &#x914D;&#x7F51;LED&#x95EA;&#x70C1;,&#x53EF;&#x4EE5;&#x6DFB;&#x52A0;&#x8BBE;&#x5907;
+</code></pre>
+<h4 id="&#x914D;&#x7F51;&#x7ED3;&#x679C;&#x56DE;&#x8C03;"><a name="&#x914D;&#x7F51;&#x7ED3;&#x679C;&#x56DE;&#x8C03;" class="plugin-anchor" href="#&#x914D;&#x7F51;&#x7ED3;&#x679C;&#x56DE;&#x8C03;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x914D;&#x7F51;&#x7ED3;&#x679C;&#x56DE;&#x8C03;</h4>
+<h4 id="&#x914D;&#x7F51;&#x95EE;&#x9898;&#x6C47;&#x603B;"><a name="&#x914D;&#x7F51;&#x95EE;&#x9898;&#x6C47;&#x603B;" class="plugin-anchor" href="#&#x914D;&#x7F51;&#x95EE;&#x9898;&#x6C47;&#x603B;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x914D;&#x7F51;&#x95EE;&#x9898;&#x6C47;&#x603B;</h4>
+<p>&#x914D;&#x7F51;&#x8D85;&#x65F6;&#xFF0C;&#x6B64;&#x65F6;&#x8BBE;&#x5907;&#x4E00;&#x76F4;&#x5904;&#x4E8E;&#x8FDE;&#x4E0D;&#x4E0A;&#x7F51;&#x7EDC;&#x7684;&#x72B6;&#x6001;&#x3002;&#x6709;&#x4EE5;&#x4E0B;&#x51E0;&#x79CD;&#x539F;&#x56E0;&#x3002;</p>
+<ul>
+<li>&#x83B7;&#x53D6;WiFi Ssid &#x9519;&#x8BEF;&#xFF0C;&#x5BFC;&#x81F4;&#x914D;&#x7F51;&#x5931;&#x8D25;
+&#x5B89;&#x5353;&#x7CFB;&#x7EDF;API&#x91CC;&#x9762;&#x83B7;&#x53D6;&#x5230;ssid&#xFF0C;&#x901A;&#x5E38;&#x524D;&#x540E;&#x4F1A;&#x6709;&#x201C;&#x201D;&#x3002;
+&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;Tuya Sdk&#x91CC;&#x9762;&#x81EA;&#x5E26;&#x7684;WiFiUtil.getCurrentSSID()&#x53BB;&#x83B7;&#x53D6;</li>
+<li>WiFi&#x5BC6;&#x7801;&#x5305;&#x542B;&#x7A7A;&#x683C;
+&#x7528;&#x6237;&#x5728;&#x8F93;&#x5165;&#x5BC6;&#x7801;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x7531;&#x4E8E;&#x8F93;&#x5165;&#x6CD5;&#x8054;&#x60F3;&#x7684;&#x529F;&#x80FD;&#x5F88;&#x5BB9;&#x6613;&#x5728;&#x5BC6;&#x7801;&#x4E2D;&#x8F93;&#x5165;&#x7A7A;&#x683C;&#x3002;&#x5EFA;&#x8BAE;&#x5BC6;&#x7801;&#x8F93;&#x5165;&#x7684;&#x65F6;&#x5019;&#x76F4;&#x63A5;&#x663E;&#x793A;&#x51FA;&#x6765;&#xFF0C;&#x53E6;&#x5916;&#x5728;&#x5224;&#x65AD;&#x5BC6;&#x7801;&#x542B;&#x6709;&#x7A7A;&#x683C;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5F39;&#x7A97;&#x63D0;&#x9192;&#x7528;&#x6237;&#x3002;</li>
+<li>&#x7528;&#x6237;&#x4E0D;&#x8F93;&#x5165;WiFi&#x5BC6;&#x7801;
+&#x7528;&#x6237;&#x5728;&#x9996;&#x6B21;&#x4F7F;&#x7528;&#x667A;&#x80FD;&#x8BBE;&#x5907;&#x4EA7;&#x54C1;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x4E0D;&#x8F93;&#x5165;&#x5BC6;&#x7801;&#x5C31;&#x8FDB;&#x884C;&#x540E;&#x7EED;&#x64CD;&#x4F5C;
+&#x5EFA;&#x8BAE;&#x5224;&#x65AD;&#x5BC6;&#x7801;&#x8F93;&#x5165;&#x4E3A;&#x7A7A;&#x4E14;WiFi&#x52A0;&#x5BC6;&#x7C7B;&#x578B;&#x4E0D;&#x4E3A;NONE&#x65F6;&#xFF0C;&#x5F39;&#x7A97;&#x63D0;&#x9192;&#x7528;&#x6237;&#x3002;</li>
+<li>&#x7528;&#x6237;&#x5728;AP&#x914D;&#x7F51;&#x65F6;&#x9009;&#x62E9;&#x4E86;&#x8BBE;&#x5907;&#x7684;&#x70ED;&#x70B9;&#x540D;&#x79F0;&#xFF0C;&#x7528;&#x6237;&#x9996;&#x6B21;&#x4F7F;&#x7528;&#x667A;&#x80FD;&#x4EA7;&#x54C1;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x51FA;&#x73B0;&#x6B64;&#x95EE;&#x9898;&#x3002;
+&#x5EFA;&#x8BAE;&#x5728;&#x5224;&#x522B;AP&#x914D;&#x7F51;&#x65F6;&#x7528;&#x6237;&#x9009;&#x62E9;&#x4E86;&#x8BBE;&#x5907;&#x7684;&#x70ED;&#x70B9;&#x540D;&#x79F0;&#xFF0C;&#x5F39;&#x7A97;&#x63D0;&#x9192;&#x7ED9;&#x7528;&#x6237;&#x3002;</li>
+<li>&#x83B7;&#x53D6;WiFi&#x7684;Ssid&#x4E3A;&quot;0x&quot;,&quot;\<unknown ssid\="">&quot;
+&#x76EE;&#x524D;&#x53D1;&#x73B0;&#x5728;&#x4E00;&#x4E9B;&#x56FD;&#x4EA7;&#x624B;&#x673A;&#x4F1A;&#x51FA;&#x73B0;&#x6B64;&#x95EE;&#x9898;&#x3002;&#x5E76;&#x4E0D;&#x662F;&#x7528;&#x6237;&#x9009;&#x62E9;&#x7684;WiFi&#x540D;&#x79F0;&#x3002;&#x8FD9;&#x662F;&#x7531;&#x4E8E;&#x5B9A;&#x4F4D;&#x6743;&#x9650;&#x6CA1;&#x5F00;&#x542F;&#x5BFC;&#x81F4;&#x7684;&#xFF0C;&#x5EFA;&#x8BAE;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x624B;&#x52A8;&#x8F93;&#x5165;WiFi&#x7684;Ssid&#xFF0C;&#x6216;&#x8005;&#x7ED9;&#x51FA;&#x5F39;&#x7A97;&#x63D0;&#x9192;&#xFF0C;&#x8BA9;&#x7528;&#x6237;&#x5F00;&#x542F;&#x76F8;&#x5E94;&#x6743;&#x9650;&#x3002;</unknown></li>
+</ul>
+<p>&#x914D;&#x7F51;&#x8D85;&#x65F6;&#xFF0C;&#x6B64;&#x65F6;&#x8BBE;&#x5907;&#x5DF2;&#x7ECF;&#x6FC0;&#x6D3B;&#x6210;&#x529F;&#x3002;&#x53EF;&#x80FD;&#x539F;&#x56E0;&#x6709;&#xFF1A;</p>
+<ul>
+<li>APP&#x6CA1;&#x6709;&#x8FDE;&#x63A5;&#x5230;&#x6B63;&#x5E38;&#x7684;&#x7F51;&#x7EDC;&#xFF0C;&#x5BFC;&#x81F4;&#x65E0;&#x6CD5;&#x83B7;&#x53D6;&#x8BBE;&#x5907;&#x7684;&#x72B6;&#x6001;&#x3002;</li>
+</ul>
+<h4 id="&#x8BBE;&#x5907;&#x914D;&#x7F51;&#x8FC7;&#x7A0B;&#x8BED;&#x97F3;&#x64AD;&#x62A5;"><a name="&#x8BBE;&#x5907;&#x914D;&#x7F51;&#x8FC7;&#x7A0B;&#x8BED;&#x97F3;&#x64AD;&#x62A5;" class="plugin-anchor" href="#&#x8BBE;&#x5907;&#x914D;&#x7F51;&#x8FC7;&#x7A0B;&#x8BED;&#x97F3;&#x64AD;&#x62A5;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x8BBE;&#x5907;&#x914D;&#x7F51;&#x8FC7;&#x7A0B;&#x8BED;&#x97F3;&#x64AD;&#x62A5;</h4>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="05-device_init.html" class="navigation navigation-prev " aria-label="Previous page: 设备初始化">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="07-ap_active.html" class="navigation navigation-next " aria-label="Next page: AP配网">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"设备配网","level":"1.5","depth":1,"next":{"title":"AP配网","level":"1.5.1","depth":2,"path":"resource/07-ap_active.md","ref":"./resource/07-ap_active.md","articles":[]},"previous":{"title":"设备初始化","level":"1.4.2","depth":2,"path":"resource/05-device_init.md","ref":"./resource/05-device_init.md","articles":[]},"dir":"ltr"},"config":{"plugins":["js-sequence-diagram-full@>=0.3.1","prism","-highlight","anchors","plantuml"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"],"lang":{"java":"java"},"ignore":["sequence"]},"livereload":{},"search":{},"plantuml":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"js-sequence-diagram-full":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","gitbook":"*"},"file":{"path":"resource/06-wifi_active.md","mtime":"2019-07-24T05:47:44.125Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-07-24T10:04:47.425Z"},"basePath":"..","book":{"language":"zh-hans"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-js-sequence-diagram-full/sequence-diagram-min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-js-sequence-diagram-full/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-plantuml/test.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
