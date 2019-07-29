@@ -1,43 +1,72 @@
 ## WiFi设备配网
 
-### wifi配网支持模式选择
+### wifi配网支持模式设置
 
 WiFi设备配网主要有Smart模式和AP模式两种, Smart配网模式需要设备wifi网卡支持sniffer模式。
 
-用户通过设置 tuya_iot_sdk/demo_soc_dev_wifi/user_cfg.h 文件中的宏WF_CFG_MODE_SELECT来选择：
+[配网支持模式设置](05-device_init.md#tuyaiotwfsocinit)
 
-WF_CFG_MODE_SELECT可选参数说明:
+配网模式切换说明：
 
-* WF_START_AP_ONLY: 只支持AP配网模式
-* WF_START_SMART_ONLY: 只支持Smart配网模式
-* WF_START_AP_FIRST: 同时支持AP和Smart两种模式，配网成功后重置进入AP模式
-* WF_START_SMART_FIRST: 同时支持AP和Smart两种模式，配网成功后重置进入Smart模式
+1. WF_START_AP_ONLY, 调用tuya_iot_wf_gw_unactive，重启tuya_sdk后进入AP配网模式；
+2. WF_START_SMART_ONLY, 调用tuya_iot_wf_gw_unactive，重启tuya_sdk后进入Smart配网模式；
+3. WF_START_AP_FIRST, 设备已连接到涂鸦云情况下，第一次调用tuya_iot_wf_gw_unactive，重启tuya_sdk后进入AP配网模式；第二次调用进入Smart配网模式;如此循环切换
+4. WF_START_SMART_FIRST, 设备已连接到涂鸦云情况下，第一次调用tuya_iot_wf_gw_unactive，重启tuya_sdk后进入Smart配网模式；第二次调用进入Ap配网模式;如此循环切换
 
+### 设备进入配网模式流程
+
+说明：tuya_sdk会开启多线程，进入配网模式生效必须重启进程，不可只重启主线程。
+
+```sequence
+Title: 
+participant Device
+participant tuya_sdk
+
+Device->tuya_sdk: call tuya_iot_wf_gw_unactive
+tuya_sdk-->Device: return OPRT_OK
+tuya_sdk->Device: __soc_dev_reset_req_cb
+Device->tuya_sdk: 重启 tuya_sdk 进程
+tuya_sdk-->Device: 进入配网模式
+Device->tuya_sdk: tuya_iot_wf_fast_get_nc_type
+tuya_sdk-->Device: 返回当前配网模式
+Device-->Device: 配网LED闪烁,可以添加设备
+```
 ### 设备重置
 
 #### tuya_iot_wf_gw_unactive
 
 ```c
 /***********************************************************
-*  Function: tuya_iot_wf_gw_unactive
-*  Return:   OPRT_OK: success  Other: fail
-*  Desc:     Remove device from tuya cloud
+ * @Function:tuya_iot_wf_gw_unactive
+ * @Desc:   重置设备，解除与涂鸦云的绑定
+ * @Return: OPRT_OK: success  Other: fail
 ***********************************************************/
 OPERATE_RET tuya_iot_wf_gw_unactive(VOID);
 ```
-In the following cases, the user should call tuya_iot_wf_gw_unactive:
-1. The device is not registered to tuya cloud, you need to switch to the distribution network mode AP or Smart.
-2. The device has been registered to tuya cloud, you need to remove and re-registered to another user.
+在下面两种情况下，应用层需要调用 tuya_iot_wf_gw_unactive
+
+1. 设备没有连接到涂鸦云，调用以进入配网模式 或者切换配网模式在AP和Smart之间。
+2. 设备已连接到涂鸦云，调用以移除设备，切换绑定到其他用户。
+
+### 配网模式获取
+
+用途：做配网LED闪烁，以表明设备处于AP配网模式还是Smart配网模式；用户在TuyaApp选择对应入口添加设备；
 
 ```c
 /***********************************************************
-*  Function: tuya_iot_wf_fast_get_nc_type
-*  Input:    nc_type
-*  Desc:     get wifi-config fast status from tuya-sdk
-*  Return:   OPRT_OK: success  Other: fail
+ * @Function:tuya_iot_wf_fast_get_nc_type
+ * @Desc:   获取tuya_sdk保存的配网模式字段值
+ * @Param:  nc_type, 说明如下
+            GWNS_FAST_LOWPOWER      0-关闭配网
+            GWNS_FAST_UNCFG_SMC     1-Smart配网模式
+            GWNS_FAST_UNCFG_AP      2-Ap配网模式
+            GWNS_FAST_UNCFG_NORMAL  3-工作模式
+ * @Return: OPRT_OK: success  Other: fail
+ * @Note:   tuya_sdk进程重启后，应用层调用获取，做设备配网指示
 ***********************************************************/
-OPERATE_RET tuya_iot_wf_fast_get_nc_type(GW_WF_NWC_FAST_STAT_T *nc_type);
-//Using the instance
+OPERATE_RET tuya_iot_wf_fast_get_nc_type(GW_WF_NWC_FAST_STAT_T *nc_type)
+
+//使用参考
 GW_WF_NWC_FAST_STAT_T wf_nwc_fast_stat;
 OPERATE_RET op_ret = tuya_iot_wf_fast_get_nc_type(&wf_nwc_fast_stat);
 if(OPRT_OK != op_ret) {
@@ -51,60 +80,10 @@ else if(wf_nwc_fast_stat == GWNS_FAST_UNCFG_AP){
 }
 ```
 
-In the following cases, the user should call tuya_iot_wf_fast_get_nc_type:
-
-1. 做配网LED闪烁，以表明设备处于AP配网模式还是Smart配网模式；
-
-   Do the distribution network LED flashing to indicate whether the device is in AP or Smart mode.
-
-配网模式切换说明：
-
-1. If macro WF_CFG_MODE_SELECT is equal to WF_START_AP_ONLY, user call tuya_iot_wf_gw_unactive, tuya-sdk enter AP distribution mode.
-2. If macro WF_CFG_MODE_SELECT is equal to WF_START_SMART_ONLY, user call tuya_iot_wf_gw_unactive, tuya-sdk enter Smart distribution mode.
-3. If macro WF_CFG_MODE_SELECT is equal to WF_START_AP_FIRST, When the device is registered to tuya-cloud, the user first calls tuya_iot_wf_gw_unactive,  tuya-sdk enters AP distribution mode; the second time call it,  tuya-sdk enter Smart mode;such cyclic switching……
-4. If macro WF_CFG_MODE_SELECT is equal to WF_START_SMART_FIRST, When the device is registered to tuya-cloud, the user first calls tuya_iot_wf_gw_unactive,  tuya-sdk enters Smart distribution mode; the second time call it,  tuya-sdk enter AP mode;such cyclic switching……
-
-* 设备进入配网模式流程
-
-```sequence
-Title: 
-
-participant Device
-participant tuya_sdk
-
-Device->tuya_sdk: call tuya_iot_wf_gw_unactive
-tuya_sdk-->Device: return OPRT_OK
-tuya_sdk->Device: callback __soc_dev_reset_req_cb
-Device->tuya_sdk: restarts tuya_sdk process
-tuya_sdk-->Device: enters the distribution mode.
-Device->tuya_sdk: call tuya_iot_wf_fast_get_nc_type
-tuya_sdk-->Device: return OPRT_OK
-Device-->Device: 配网LED闪烁,可以添加设备
-```
-
 
 #### 配网结果回调
 
 
-#### 配网问题汇总
+[__soc_dev_net_status_cb](05-device_init.md#socdevnetstatuscb)
 
-配网超时，此时设备一直处于连不上网络的状态。有以下几种原因。
-
-- 获取WiFi Ssid 错误，导致配网失败
-安卓系统API里面获取到ssid，通常前后会有“”。
-建议使用Tuya Sdk里面自带的WiFiUtil.getCurrentSSID()去获取
-- WiFi密码包含空格
-用户在输入密码的时候，由于输入法联想的功能很容易在密码中输入空格。建议密码输入的时候直接显示出来，另外在判断密码含有空格的时候，弹窗提醒用户。
-- 用户不输入WiFi密码
-用户在首次使用智能设备产品的过程中，很容易不输入密码就进行后续操作
-建议判断密码输入为空且WiFi加密类型不为NONE时，弹窗提醒用户。
-- 用户在AP配网时选择了设备的热点名称，用户首次使用智能产品的过程中，很容易出现此问题。
-建议在判别AP配网时用户选择了设备的热点名称，弹窗提醒给用户。
-- 获取WiFi的Ssid为"0x","\<unknown ssid\>"
-目前发现在一些国产手机会出现此问题。并不是用户选择的WiFi名称。这是由于定位权限没开启导致的，建议用户可以手动输入WiFi的Ssid，或者给出弹窗提醒，让用户开启相应权限。
-
-配网超时，此时设备已经激活成功。可能原因有：
-
-- APP没有连接到正常的网络，导致无法获取设备的状态。
-
-#### 设备配网过程语音播报
+__soc_dev_net_status_cb(STAT_CLOUD_CONN) 为配网成功 或 设备成功连接到涂鸦云

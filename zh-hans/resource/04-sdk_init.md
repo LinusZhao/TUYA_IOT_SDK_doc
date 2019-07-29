@@ -32,47 +32,20 @@ PR_NOTICE("tuya_iot_init success");
 AddOutputTerm 和 SetLogManageAttr接口使用方法请参考：
 [日志管理](log_manage.md)
 
-#### tuya_iot_set_gw_prod_info
-```c
-#include "tuya_iot_base_api.h"
-/***********************************************************
- * @Function:tuya_iot_set_gw_prod_info
- * @Desc:   设置设备授权信息(用于有线网关)
- * @Param:  prod_info,授权信息
- * @Return: OPRT_OK: success  Other: fail
-***********************************************************/
-OPERATE_RET tuya_iot_set_gw_prod_info(IN CONST GW_PROD_INFO_S *prod_info);
-```
-接口使用说明：
-```c
-// UUID和AUTHKEY用于涂鸦云设备的安全认证，每个设备所用key均为唯一
-#define UUID                "tuya19342bc6e2d80143"
-#define AUTHKEY             "IbOFAiLzNAxgT84zd1mrjpy0sUSbJBt3"
-
-GW_PROD_INFO_S prod_info = {UUID, AUTHKEY};
-op_ret = tuya_iot_set_gw_prod_info(&prod_info);
-if(OPRT_OK != op_ret) {
-    PR_ERR("tuya_iot_set_gw_prod_info op_ret:%d", op_ret);
-    return op_ret;
-}
-PR_NOTICE("tuya_iot_set_gw_prod_info success");
-```
-
 #### tuya_iot_set_wf_gw_prod_info
 ```c
 #include "tuya_iot_wifi_api.h"
 /***********************************************************
  * @Function:tuya_iot_set_wf_gw_prod_info
- * @Desc:   设置设备授权信息(用于wifi网关)
+ * @Desc:   设置设备授权信息(用于wifi设备)
  * @Param:  prod_info,授权信息 + 配网热点名称
  *          热点名称字符串长度小于16字节
- *          热点密码字符串长度x
-}WF_GW_PROD_INFO_S;
+ *          热点密码字符串长度小于16字节
  * @Return: OPRT_OK: success  Other: fail
 ***********************************************************/
 OPERATE_RET tuya_iot_set_wf_gw_prod_info(IN CONST WF_GW_PROD_INFO_S *wf_prod_info);
 ```
-接口使用说明：
+#### 接口使用说明
 ```c
 // ap_ssid和ap_passwd参数可以NULL;
 // ap_ssid=NULL时，默认热点名称为SmartLife-XXXX

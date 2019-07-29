@@ -17,13 +17,8 @@ start
 :tuya_iot_init;
 :AddOutputTerm(可选);
 :SetLogManageAttr(可选);
-if (wired gateway?) then (yes)
 :tuya_iot_set_gw_prod_info;
-:tuya_iot_gw_init;
-else (no)
-:tuya_iot_set_wf_gw_prod_info;
-:tuya_iot_wf_gw_init;
-endif
+:tuya_iot_wf_soc_dev_init;
 :tuya_iot_reg_get_nw_stat_cb;
 stop
 @enduml
