@@ -83,9 +83,6 @@ OPERATE_RET hwl_wf_wk_mode_get(OUT WF_WK_MD_E *mode)
 ***********************************************************/
 OPERATE_RET hwl_wf_station_connect(IN CONST CHAR_T *ssid,IN CONST CHAR_T *passwd)
 {
-#ifdef COMPILE_CHECK
-        #error "Please implement the hwl_wf_station_connect function ?"
-#else
     PR_DEBUG("STA Con AP ssid:%s passwd:%s", ssid, passwd);
     // UserTODO
     
@@ -105,22 +102,9 @@ OPERATE_RET hwl_wf_station_connect(IN CONST CHAR_T *ssid,IN CONST CHAR_T *passwd
 ***********************************************************/
 OPERATE_RET hwl_wf_station_stat_get(OUT WF_STATION_STAT_E *stat)
 {
-#ifdef COMPILE_CHECK
-        #error "Please implement the hwl_wf_wk_mode_get function ?"
-#else
     // UserTODO
-    if(0){ // If successful device to connect the network
-        *stat = WSS_GOT_IP;
-    }
-    else{
-        *stat = WSS_CONN_FAIL;
-    }
-#endif
-    static WF_STATION_STAT_E previousStat = WSS_CONN_FAIL;
-    if(previousStat != *stat){
-        PR_DEBUG("Curr WIFI Stat change:%d", *stat);
-    }
-    previousStat = *stat;
+    *stat = ?;
+    
     return OPRT_OK;
 }
 ```

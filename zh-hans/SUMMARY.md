@@ -2,8 +2,6 @@
 
 * [前言](/README.md)
 * [适用范围](./resource/01-Scope.md)
-* 开发准备
-    * [创建产品](./resource/02-New_product.md)
 * [SDK目录结构](./resource/SDK_directory.md)
 * [初始化](./resource/03-init.md)
     * [SDK初始化](./resource/04-sdk_init.md)

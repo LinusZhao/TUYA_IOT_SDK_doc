@@ -48,6 +48,36 @@ OPERATE_RET tuya_iot_wf_gw_unactive(VOID);
 1. 设备没有连接到涂鸦云，调用以进入配网模式 或者切换配网模式在AP和Smart之间。
 2. 设备已连接到涂鸦云，调用以移除设备，切换绑定到其他用户。
 
+#### __soc_dev_reset_req_cb
+```c
+/***********************************************************
+ * @Function:__soc_dev_reset_req_cb
+ * @Desc:   sdk进程重启请求，由tuya_sdk回调，应用层处理
+ * @Param:  type，通知应用层网关重置类型，如下说明：
+            GW_LOCAL_RESET_FACTORY，本地恢复出厂设置
+            GW_REMOTE_UNACTIVE, TuyaApp端移除网关
+            GW_LOCAL_UNACTIVE, 本地移除网关
+            GW_REMOTE_RESET_FACTORY, 远程恢复出厂设置
+            GW_RESET_DATA_FACTORY, 云端和本地数据不一致
+ * @Return: OPRT_OK: success  Other: fail
+ * @Note:   必须重启整个进程，不可只取消线程，tuya_sdk会创建多线程
+***********************************************************/
+STATIC VOID __soc_dev_reset_req_cb(GW_RESET_TYPE_E type)
+{
+    PR_DEBUG("SOC Rev Reset Req %d", type);
+    if(type == GW_RESET_DATA_FACTORY){
+        //该设备之前被恢复过出厂设置，是否需要进行本地用户数据清理
+        return;
+    }
+    // UserTODO 重启sdk线程
+}
+```
+
+**说明：**
+__soc_dev_reset_req_cb(GW_RESET_DATA_FACTORY)
+主要是用来解决云端数据状态和本地数据状态不匹配的问题。
+比如设备先在本地移除，然后APP上进行了恢复出厂设置操作，此时如果设备重新配网，SDK会告知应用该设备之前被恢复过出厂设置，需要进行本地数据清理，您这边如果没有本地数据需要清理，可以直接返回，无需进行后续的本地重置处理。
+
 ### 配网模式获取
 
 用途：做配网LED闪烁，以表明设备处于AP配网模式还是Smart配网模式；用户在TuyaApp选择对应入口添加设备；
