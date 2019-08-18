@@ -13,12 +13,12 @@
     * [其他方式](./resource/09-other_active.md)
 * [固件升级](./resource/10-ota.md)
     * [固件升级](./resource/11-soc_ota.md)
-* [设备控制](./resource/16-control.md)
+* [功能点](./resource/16-control.md)
     * [指令下发](./resource/17-rev.md)
     * [状态上报](./resource/18-send.md)
-* [数据上报]
-    * [流服务]
-    * [云存储]
+* [扫地机](./resource/19-irobot.md)
+    * [流服务](./resource/20-media.md)
+    * [云存储](./resource/21-oss.md)
 * [其他接口](./resource/public_api.md)
 * [日志管理](./resource/log_manage.md)
 * [常见问题](./resource/FAQ.md)

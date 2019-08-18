@@ -52,6 +52,7 @@ OPERATE_RET tuya_iot_wf_soc_dev_init_param(IN CONST GW_WF_CFG_MTHD_SEL cfg, IN C
 - __soc_dev_status_changed_cb
 - __soc_dev_rev_upgrade_info_cb
 - [__soc_dev_reset_req_cb](./06-wifi_active.html#socdevresetreqcb)
+- [__soc_dev_rev_upgrade_info_cb](11-soc_ota.md#socdevrevupgradeinfocb)
 - __soc_dev_obj_dp_cmd_cb
 - __soc_dev_raw_dp_cmd_cb
 
