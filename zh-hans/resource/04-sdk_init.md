@@ -52,7 +52,7 @@ OPERATE_RET tuya_iot_set_wf_gw_prod_info(IN CONST WF_GW_PROD_INFO_S *wf_prod_inf
 #define ap_ssid     "TuyaSmart" // 长度不得大于16字节
 #define ap_passwd   "12345678"  // 长度不得大于16字节
 
-WF_GW_PROD_INFO_S prod_info = {UUID, AUTHKEY, ap_ssid, ap_ssid};
+WF_GW_PROD_INFO_S prod_info = {UUID, AUTHKEY, ap_ssid, ap_passwd};
 op_ret = tuya_iot_set_wf_gw_prod_info(&prod_info);
 if(OPRT_OK != op_ret) {
     PR_ERR("tuya_iot_set_wf_gw_prod_info op_ret:%d", op_ret);

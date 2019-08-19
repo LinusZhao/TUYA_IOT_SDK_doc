@@ -3,10 +3,10 @@
 
 网关产品key信息获取，请参考[创建产品](New_product.md)
 
-### tuya_iot_wf_soc_init
+### tuya_iot_wf_soc_dev_init
 ```c
 /***********************************************************
- * @Function:tuya_iot_wf_soc_init
+ * @Function:tuya_iot_wf_soc_dev_init
  * @Desc:   wifi设备初始化接口
  * @Param:  cfg,选择GWCM_OLD
  * @Param:  start_mode, 配网支持模式选择
