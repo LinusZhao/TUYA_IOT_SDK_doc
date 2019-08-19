@@ -284,12 +284,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7" data-path="16-control.md">
+        <li class="chapter " data-level="1.7" data-path="16-control.html">
             
-                <span>
+                <a href="16-control.html">
             
                     
-                    设备控制
+                    功能点
             
                 </a>
             
@@ -298,9 +298,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.7.1" data-path="17-rev.md">
+        <li class="chapter " data-level="1.7.1" data-path="17-rev.html">
             
-                <span>
+                <a href="17-rev.html">
             
                     
                     指令下发
@@ -311,9 +311,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.2" data-path="18-send.md">
+        <li class="chapter " data-level="1.7.2" data-path="18-send.html">
             
-                <span>
+                <a href="18-send.html">
             
                     
                     状态上报
@@ -329,41 +329,41 @@
             
         </li>
     
-        <li class="chapter " data-level="1.8" >
+        <li class="chapter " data-level="1.8" data-path="19-irobot.html">
             
-                <span>
+                <a href="19-irobot.html">
             
                     
-                    [数据上报]
+                    扫地机
             
-                </span>
+                </a>
             
 
             
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.8.1" >
+        <li class="chapter " data-level="1.8.1" data-path="20-media.html">
             
-                <span>
+                <a href="20-media.html">
             
                     
-                    [流服务]
+                    流服务
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="1.8.2" >
+        <li class="chapter " data-level="1.8.2" data-path="21-oss.html">
             
-                <span>
+                <a href="21-oss.html">
             
                     
-                    [云存储]
+                    云存储
             
-                </span>
+                </a>
             
 
             
@@ -374,9 +374,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9" data-path="public_api.md">
+        <li class="chapter " data-level="1.9" data-path="public_api.html">
             
-                <span>
+                <a href="public_api.html">
             
                     
                     其他接口
@@ -473,6 +473,7 @@ tuya_sdk-&gt;Device: hwl_wf_wk_mode_set(WWM_SNIFFER)
 tuya_sdk-&gt;Device: create func_Sniffer thread
 TuyaApp-&gt;TuyaApp:&#x7528;&#x6237;&#x9009;&#x62E9;Smart&#x6A21;&#x5F0F;&#x6DFB;&#x52A0;&#x8BBE;&#x5907;
 Note over TuyaApp: &#x5E7F;&#x64AD;&#x53D1;&#x9001;ssid/pwd/token
+tuya_sdk-&gt;Device: hwl_wf_set_cur_channel
 Note over Device: &#x5207;&#x6362;&#x4FE1;&#x9053;&#x6355;&#x6349;&#x62A5;&#x6587;
 Device-&gt;Device:&#x6355;&#x6349;&#x5230;&#x5408;&#x6CD5;&#x7684;&#x7F51;&#x7EDC;&#x62A5;&#x6587;
 Device--&gt;tuya_sdk:s_pSnifferCall(rev_buf,len)
@@ -525,10 +526,9 @@ OPERATE_RET <span class="token function">hwl_wf_set_cur_channel</span><span clas
     <span class="token comment">// UserTODO</span>
     <span class="token keyword">return</span> OPRT_OK<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-
-#### hwl_wf_get_cur_channel
-```c
-<span class="token comment">/***********************************************************
+</code></pre>
+<h4 id="hwlwfgetcurchannel"><a name="hwlwfgetcurchannel" class="plugin-anchor" href="#hwlwfgetcurchannel"><i class="fa fa-link" aria-hidden="true"></i></a>hwl_wf_get_cur_channel</h4>
+<pre class="language-"><code class="lang-c"><span class="token comment">/***********************************************************
  * @Function:hwl_wf_get_cur_channel
  * @Desc:   &#x83B7;&#x53D6;wifi&#x5DE5;&#x4F5C;&#x4FE1;&#x9053;
  * @Return: OPRT_OK: success  Other: fail
@@ -585,7 +585,7 @@ OPERATE_RET <span class="token function">hwl_wf_get_cur_channel</span><span clas
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Smart配网","level":"1.5.2","depth":2,"next":{"title":"用户需实现的接口","level":"1.5.3","depth":2,"path":"resource/wifi_api.md","ref":"./resource/wifi_api.md","articles":[]},"previous":{"title":"AP配网","level":"1.5.1","depth":2,"path":"resource/07-ap_active.md","ref":"./resource/07-ap_active.md","articles":[]},"dir":"ltr"},"config":{"plugins":["js-sequence-diagram-full@>=0.3.1","prism","-highlight","anchors","plantuml"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"],"lang":{"java":"java"},"ignore":["sequence"]},"livereload":{},"search":{},"plantuml":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"js-sequence-diagram-full":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","gitbook":"*"},"file":{"path":"resource/08-smart_active.md","mtime":"2019-08-15T07:46:22.663Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-15T08:05:26.226Z"},"basePath":"..","book":{"language":"zh-hans"}});
+            gitbook.page.hasChanged({"page":{"title":"Smart配网","level":"1.5.2","depth":2,"next":{"title":"用户需实现的接口","level":"1.5.3","depth":2,"path":"resource/wifi_api.md","ref":"./resource/wifi_api.md","articles":[]},"previous":{"title":"AP配网","level":"1.5.1","depth":2,"path":"resource/07-ap_active.md","ref":"./resource/07-ap_active.md","articles":[]},"dir":"ltr"},"config":{"plugins":["js-sequence-diagram-full@>=0.3.1","prism","-highlight","anchors","plantuml"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"],"lang":{"java":"java"},"ignore":["sequence"]},"livereload":{},"search":{},"plantuml":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"js-sequence-diagram-full":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","gitbook":"*"},"file":{"path":"resource/08-smart_active.md","mtime":"2019-08-19T02:25:47.540Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-19T02:30:06.859Z"},"basePath":"..","book":{"language":"zh-hans"}});
         });
     </script>
 </div>

@@ -17,6 +17,7 @@ tuya_sdk->Device: hwl_wf_wk_mode_set(WWM_SNIFFER)
 tuya_sdk->Device: create func_Sniffer thread
 TuyaApp->TuyaApp:用户选择Smart模式添加设备
 Note over TuyaApp: 广播发送ssid/pwd/token
+tuya_sdk->Device: hwl_wf_set_cur_channel
 Note over Device: 切换信道捕捉报文
 Device->Device:捕捉到合法的网络报文
 Device-->tuya_sdk:s_pSnifferCall(rev_buf,len)
@@ -62,6 +63,7 @@ OPERATE_RET hwl_wf_all_ap_scan(OUT AP_IF_S **ap_ary,OUT UINT_T *num)
 ```
 
 #### hwl_wf_set_cur_channel
+
 ```c
 /***********************************************************
  * @Function:hwl_wf_set_cur_channel
@@ -75,8 +77,10 @@ OPERATE_RET hwl_wf_set_cur_channel(IN CONST BYTE_T chan)
     // UserTODO
     return OPRT_OK;
 }
+```
 
 #### hwl_wf_get_cur_channel
+
 ```c
 /***********************************************************
  * @Function:hwl_wf_get_cur_channel

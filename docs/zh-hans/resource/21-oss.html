@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>固件升级 · GitBook</title>
+        <title>云存储 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -65,10 +65,10 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="11-soc_ota.html" />
+    <link rel="next" href="public_api.html" />
     
     
-    <link rel="prev" href="09-other_active.html" />
+    <link rel="prev" href="20-media.html" />
     
 
     </head>
@@ -252,7 +252,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.6" data-path="10-ota.html">
+        <li class="chapter " data-level="1.6" data-path="10-ota.html">
             
                 <a href="10-ota.html">
             
@@ -356,7 +356,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.8.2" data-path="21-oss.html">
+        <li class="chapter active" data-level="1.8.2" data-path="21-oss.html">
             
                 <a href="21-oss.html">
             
@@ -443,7 +443,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >固件升级</a>
+        <a href=".." >云存储</a>
     </h1>
 </div>
 
@@ -458,40 +458,64 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="&#x8BBE;&#x5907;&#x56FA;&#x4EF6;&#x5347;&#x7EA7;"><a name="&#x8BBE;&#x5907;&#x56FA;&#x4EF6;&#x5347;&#x7EA7;" class="plugin-anchor" href="#&#x8BBE;&#x5907;&#x56FA;&#x4EF6;&#x5347;&#x7EA7;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x8BBE;&#x5907;&#x56FA;&#x4EF6;&#x5347;&#x7EA7;</h2>
-<p>&#x56FA;&#x4EF6;&#x5347;&#x7EA7;&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x4FEE;&#x590D;&#x8BBE;&#x5907;bug&#x548C;&#x589E;&#x52A0;&#x8BBE;&#x5907;&#x65B0;&#x529F;&#x80FD;&#x3002;&#x56FA;&#x4EF6;&#x5347;&#x7EA7;&#x4E3B;&#x8981;&#x5206;&#x4E24;&#x79CD;&#xFF0C;&#x7B2C;&#x4E00;&#x79CD;&#x662F;&#x8BBE;&#x5907;&#x5347;&#x7EA7;&#xFF0C;&#x7B2C;&#x4E8C;&#x79CD;&#x662F;MCU&#x5347;&#x7EA7;&#x3002;&#x8FD9;&#x91CC;&#x7684;wifi&#x8BBE;&#x5907;&#x7684;&#x56FA;&#x4EF6;&#x5347;&#x7EA7;&#x5747;&#x6307;&#x8BBE;&#x5907;&#x5347;&#x7EA7;&#x3002;</p>
-<h3 id="&#x4E1A;&#x52A1;&#x57FA;&#x672C;&#x94FE;&#x8DEF;"><a name="&#x4E1A;&#x52A1;&#x57FA;&#x672C;&#x94FE;&#x8DEF;" class="plugin-anchor" href="#&#x4E1A;&#x52A1;&#x57FA;&#x672C;&#x94FE;&#x8DEF;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4E1A;&#x52A1;&#x57FA;&#x672C;&#x94FE;&#x8DEF;</h3>
-<p>&#x8BBE;&#x5907;&#x5347;&#x7EA7;&#x8FC7;&#x7A0B;&#x6D89;&#x53CA;&#x624B;&#x673A;APP &#x3001;&#x8BBE;&#x5907;&#x3001;&#x6D82;&#x9E26;&#x4E91;&#x4E09;&#x7AEF;</p>
-<ul>
-<li><p>&#x624B;&#x673A;APP&#xFF1A;&#x5347;&#x7EA7;&#x8FDB;&#x5EA6;&#x7ED3;&#x679C;&#x7684;&#x5C55;&#x793A; &#x6216;&#x8005; &#x5347;&#x7EA7;&#x6D88;&#x606F;&#x7684;&#x53D1;&#x8D77;&#x8005;</p>
-</li>
-<li><p>&#x6D82;&#x9E26;&#x4E91;&#xFF1A; &#x5347;&#x7EA7;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x7BA1;&#x7406;&#x8005;&#xFF0C;&#x8D1F;&#x8D23;&#x5347;&#x7EA7;&#x56FA;&#x4EF6;&#x7684;&#x5B58;&#x50A8;&#xFF0C;&#x8BBE;&#x5907;&#x5347;&#x7EA7;&#x72B6;&#x6001;&#x7684;&#x66F4;&#x65B0;&#xFF0C;&#x5347;&#x7EA7;&#x6587;&#x6848;&#x63A8;&#x9001;</p>
-</li>
-<li><p>&#x8BBE;&#x5907;: &#x8D1F;&#x8D23;&#x63A5;&#x6536;&#x56FA;&#x4EF6;&#xFF0C;&#x56FA;&#x4EF6;&#x5347;&#x7EA7;&#x7684;&#x6267;&#x884C;&#x8005;</p>
-</li>
-</ul>
-<h3 id="&#x56FA;&#x4EF6;&#x5305;&#x914D;&#x7F6E;&#x8BF4;&#x660E;"><a name="&#x56FA;&#x4EF6;&#x5305;&#x914D;&#x7F6E;&#x8BF4;&#x660E;" class="plugin-anchor" href="#&#x56FA;&#x4EF6;&#x5305;&#x914D;&#x7F6E;&#x8BF4;&#x660E;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x56FA;&#x4EF6;&#x5305;&#x914D;&#x7F6E;&#x8BF4;&#x660E;</h3>
+                                <h2 id="oss&#x5BF9;&#x8C61;&#x5B58;&#x50A8;&#x670D;&#x52A1;"><a name="oss&#x5BF9;&#x8C61;&#x5B58;&#x50A8;&#x670D;&#x52A1;" class="plugin-anchor" href="#oss&#x5BF9;&#x8C61;&#x5B58;&#x50A8;&#x670D;&#x52A1;"><i class="fa fa-link" aria-hidden="true"></i></a>OSS&#x5BF9;&#x8C61;&#x5B58;&#x50A8;&#x670D;&#x52A1;</h2>
+<p>&#x6B64;&#x670D;&#x52A1;&#x76EE;&#x524D;&#x7528;&#x4E8E;&#x6FC0;&#x5149;&#x626B;&#x5730;&#x673A;&#x54C1;&#x7C7B;&#xFF0C;&#x7528;&#x6765;&#x4E0A;&#x62A5;&#x6570;&#x636E;&#x91CF;&#x8F83;&#x5927;&#x7684;&#x5168;&#x91CF;&#x6FC0;&#x5149;&#x5730;&#x56FE;&#x6570;&#x636E;&#xFF1B;</p>
+<h3 id="&#x94FE;&#x8DEF;&#x56FE;"><a name="&#x94FE;&#x8DEF;&#x56FE;" class="plugin-anchor" href="#&#x94FE;&#x8DEF;&#x56FE;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x94FE;&#x8DEF;&#x56FE;</h3>
+<p><img src="../assets/images/uml/resource/21-oss.png" alt=""></p>
+<h3 id="&#x63A5;&#x53E3;&#x8BF4;&#x660E;"><a name="&#x63A5;&#x53E3;&#x8BF4;&#x660E;" class="plugin-anchor" href="#&#x63A5;&#x53E3;&#x8BF4;&#x660E;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x63A5;&#x53E3;&#x8BF4;&#x660E;</h3>
+<h4 id="tuyaiotuploadlayoutbuffer"><a name="tuyaiotuploadlayoutbuffer" class="plugin-anchor" href="#tuyaiotuploadlayoutbuffer"><i class="fa fa-link" aria-hidden="true"></i></a>tuya_iot_upload_layout_buffer</h4>
+<pre class="language-"><code class="lang-c"><span class="token comment">/***********************************************************
+*  Function: tuya_iot_upload_layout_buffer
+*  Desc:  sweeper function. upload cleaner map info
+*  Input: map_id
+*  Input: buffer
+*  Input: len
+*  Return: OPERATE_RET
+***********************************************************/</span>
+<span class="token macro property">#<span class="token directive keyword">define</span> tuya_iot_upload_layout_buffer(map_id, buffer, len) \
+tuya_iot_map_cleaner_upload_buffer(map_id, buffer, len, &quot;layout/lay.bin&quot;, UP_CLEANER_MAP)</span>
+
+OPERATE_RET <span class="token function">tuya_iot_map_cleaner_upload_buffer</span><span class="token punctuation">(</span>IN CONST INT_T map_id<span class="token punctuation">,</span> IN CONST BYTE_T <span class="token operator">*</span>buffer<span class="token punctuation">,</span> IN CONST UINT_T len<span class="token punctuation">,</span> \
+                                               IN CONST CHAR_T <span class="token operator">*</span>cloud_file_name<span class="token punctuation">,</span> IN CONST UP_MAP_TYPE_E map_type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="tuyaiotuploadroutebuffer"><a name="tuyaiotuploadroutebuffer" class="plugin-anchor" href="#tuyaiotuploadroutebuffer"><i class="fa fa-link" aria-hidden="true"></i></a>tuya_iot_upload_route_buffer</h4>
+<pre class="language-"><code class="lang-c"><span class="token comment">/***********************************************************
+*  Function: tuya_iot_upload_route_buffer
+*  Desc:  sweeper function. upload cleaner map info
+*  Input: map_id
+*  Input: buffer
+*  Input: len
+*  Return: OPERATE_RET
+***********************************************************/</span>
+<span class="token macro property">#<span class="token directive keyword">define</span> tuya_iot_upload_route_buffer(map_id, buffer, len) \
+    tuya_iot_map_cleaner_upload_buffer(map_id, buffer, len, &quot;route/rou.bin&quot;, UP_CLEANER_PATH)</span>
+
+OPERATE_RET <span class="token function">tuya_iot_map_cleaner_upload_buffer</span><span class="token punctuation">(</span>IN CONST INT_T map_id<span class="token punctuation">,</span> IN CONST BYTE_T <span class="token operator">*</span>buffer<span class="token punctuation">,</span> IN CONST UINT_T len<span class="token punctuation">,</span> \
+                                               IN CONST CHAR_T <span class="token operator">*</span>cloud_file_name<span class="token punctuation">,</span> IN CONST UP_MAP_TYPE_E map_type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="&#x3000;tuyaiotmaprecorduploadbuffer"><a name="&#x3000;tuyaiotmaprecorduploadbuffer" class="plugin-anchor" href="#&#x3000;tuyaiotmaprecorduploadbuffer"><i class="fa fa-link" aria-hidden="true"></i></a>&#x3000;tuya_iot_map_record_upload_buffer</h4>
 <ol>
-<li><p>&#x7F51;&#x5173;&#x6216;&#x5B50;&#x8BBE;&#x5907;&#x914D;&#x7F51;&#x6210;&#x529F;&#x540E;&#xFF0C;&#x4ECE;TuyaApp&#x4E0A;&#x83B7;&#x53D6;&#x8BBE;&#x5907;&#x4FE1;&#x606F;&#x91CC;&#x7684;&#x865A;&#x62DF;ID&#xFF0C;&#x4F5C;&#x4E3A;&#x56FA;&#x4EF6;&#x5347;&#x7EA7;&#x7684;&#x767D;&#x540D;&#x5355;</p>
-</li>
-<li><p>&#x7F16;&#x8BD1;&#x51FA;&#x8981;&#x5347;&#x7EA7;&#x7684;&#x56FA;&#x4EF6;&#x5305;&#xFF0C;&#x56FA;&#x4EF6;&#x7248;&#x672C;&#x8981;&#x9AD8;&#x4E8E;&#x8BBE;&#x5907;&#x4E2D;&#x8FD0;&#x884C;&#x7684;&#x56FA;&#x4EF6;&#x7248;&#x672C;</p>
-</li>
-<li><p>&#x767B;&#x5F55; <a href="https://iot.tuya.com/index" target="_blank">https://iot.tuya.com/index</a> &#x5F00;&#x53D1;&#x8005;&#x5E73;&#x53F0;&#xFF0C;&#x5230;&#x5BF9;&#x5E94;&#x521B;&#x5EFA;&#x7684;&#x4EA7;&#x54C1;&#x4E0B;&#xFF0C;&#x4E0A;&#x4F20;&#x914D;&#x7F6E;&#x56FA;&#x4EF6;&#x5305;</p>
-</li>
+<li>&#x6FC0;&#x5149;&#x626B;&#x5730;&#x673A;&#x6E05;&#x626B;&#x8BB0;&#x5F55;&#x4E0A;&#x62A5;&#x63A5;&#x53E3;;</li>
+<li></li>
 </ol>
-<p>&#x64CD;&#x4F5C;&#x8BF4;&#x660E;&#xFF1A;<a href="https://docs.tuya.com/cn/product/ota.html" target="_blank">https://docs.tuya.com/cn/product/ota.html</a></p>
-<ul>
-<li>wifi&#x8BBE;&#x5907;&#x7684;&#x56FA;&#x4EF6;&#x5347;&#x7EA7;&#x65F6;&#xFF0C;&#x56FA;&#x4EF6;&#x7C7B;&#x578B;&#x9009;&#x62E9; SDK&#x56FA;&#x4EF6;</li>
-<li>wifi&#x8BBE;&#x5907;&#x7684;MCU&#x56FA;&#x4EF6;&#x5347;&#x7EA7;&#x65F6;&#xFF0C;&#x56FA;&#x4EF6;&#x7C7B;&#x578B;&#x9009;&#x62E9; MCU&#x56FA;&#x4EF6;</li>
-</ul>
-<h3 id="&#x5347;&#x7EA7;&#x5F00;&#x59CB;&#x7684;&#x65B9;&#x5F0F;"><a name="&#x5347;&#x7EA7;&#x5F00;&#x59CB;&#x7684;&#x65B9;&#x5F0F;" class="plugin-anchor" href="#&#x5347;&#x7EA7;&#x5F00;&#x59CB;&#x7684;&#x65B9;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5347;&#x7EA7;&#x5F00;&#x59CB;&#x7684;&#x65B9;&#x5F0F;</h3>
-<p>&#x8BBE;&#x5907;&#x56FA;&#x4EF6;&#x4E0A;&#x4F20;&#x5230;&#x4E91;&#x7AEF;&#x540E;&#xFF0C;&#x8BBE;&#x5907;&#x4E0D;&#x4F1A;&#x7ACB;&#x5373;&#x6536;&#x5230;&#x5347;&#x7EA7;&#x6D88;&#x606F;&#xFF0C;&#x76EE;&#x524D;&#x6D82;&#x9E26;&#x652F;&#x6301;&#x4EE5;&#x4E0B;&#x51E0;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;</p>
-<ul>
-<li>App&#x63D0;&#x9192;&#x5347;&#x7EA7;: &#x7528;&#x6237;&#x9996;&#x6B21;&#x6253;&#x5F00;&#x8BBE;&#x5907;&#x9762;&#x677F;&#x65F6;&#xFF0C;&#x4F1A;&#x6536;&#x5230;&#x5347;&#x7EA7;&#x63D0;&#x9192;&#x5F39;&#x6846;&#xFF0C;&#x53EF;&#x9009;&#x62E9;&#x5347;&#x7EA7;&#x6216;&#x4E0D;&#x5347;&#x7EA7;&#xFF1B;</li>
-<li>App&#x9759;&#x9ED8;&#x5347;&#x7EA7;: &#x5373;&#x8BBE;&#x5907;&#x9759;&#x9ED8;&#x5347;&#x7EA7;&#xFF0C;&#x8BBE;&#x5907;&#x91CD;&#x542F;&#x540E;&#xFF0C;&#x4F1A;&#x5411;&#x4E91;&#x7AEF;&#x8BF7;&#x6C42;&#x4E00;&#x6B21;&#x662F;&#x5426;&#x6709;&#x9759;&#x9ED8;&#x5347;&#x7EA7;&#x4EFB;&#x52A1;&#xFF0C;&#x6709;&#x7684;&#x8BDD;&#x76F4;&#x63A5;&#x8FDB;&#x884C;&#x5347;&#x7EA7;&#xFF1B;&#x5982;&#x679C;&#x7528;&#x6237;&#x53BB;&#x6253;&#x5F00;&#x8BBE;&#x5907;&#x9762;&#x677F;&#xFF0C;&#x6B64;&#x65F6;&#x4F1A;&#x6709;&#x8FDB;&#x5EA6;&#x6846;&#x663E;&#x793A;&#xFF0C;&#x6B64;&#x65F6;&#x8BBE;&#x5907;&#x662F;&#x65E0;&#x6CD5;&#x64CD;&#x4F5C;&#x7684;&#xFF1B;</li>
-<li>App&#x5F3A;&#x5236;&#x5347;&#x7EA7;: &#x7528;&#x6237;&#x9996;&#x6B21;&#x6253;&#x5F00;&#x8BBE;&#x5907;&#x9762;&#x677F;&#x65F6;&#xFF0C;&#x4F1A;&#x6536;&#x5230;&#x5347;&#x7EA7;&#x63D0;&#x9192;&#x5F39;&#x6846;&#xFF0C;&#x53EA;&#x6709;&#x786E;&#x5B9A;&#x53EF;&#x9009;&#xFF0C;&#x8D1F;&#x8D23;&#x8BBE;&#x5907;&#x65E0;&#x6CD5;&#x64CD;&#x4F5C;&#xFF1B;</li>
-<li>App&#x68C0;&#x6D4B;&#x5347;&#x7EA7;: &#x5373;App&#x7528;&#x6237;&#x4E3B;&#x52A8;&#x70B9;&#x51FB;&#x5BF9;&#x5E94;&#x8BBE;&#x5907;&#x7684;&#x9762;&#x677F;&#xFF0C;&#x7136;&#x540E;&#x70B9;&#x51FB;&#x53F3;&#x4E0A;&#x89D2;&#x8FDB;&#x5165;&#x8BBE;&#x5907;&#x4FE1;&#x606F;&#x754C;&#x9762;&#xFF0C;&#x68C0;&#x6D4B;&#x8BBE;&#x5907;&#x56FA;&#x4EF6;&#x7248;&#x672C;&#xFF0C;&#x4E3B;&#x52A8;&#x66F4;&#x65B0;&#xFF1B;</li>
-</ul>
+<pre class="language-"><code class="lang-c"><span class="token comment">/***********************************************************
+*  Function: tuya_iot_map_record_upload_buffer
+*  Desc:  sweeper function. upload record map info
+*  Input: map_id
+*  Input: buffer
+*  Input: len
+*  Input: cloud_file_name
+*  Input: extend
+*  Return: OPERATE_RET
+***********************************************************/</span>
+<span class="token macro property">#<span class="token directive keyword">define</span> tuya_iot_map_record_upload_buffer(map_id,buffer,len,cloud_file_name,extend)\
+    upload_map_custom_buffer(map_id,buffer,len,cloud_file_name,0,FALSE,extend,TRUE)</span>
+
+OPERATE_RET <span class="token function">upload_map_custom_buffer</span><span class="token punctuation">(</span>IN CONST INT_T map_id<span class="token punctuation">,</span> IN CONST BYTE_T <span class="token operator">*</span>buf<span class="token punctuation">,</span>IN CONST UINT_T len<span class="token punctuation">,</span> \
+                                     IN CONST CHAR_T <span class="token operator">*</span>cloud_file_name<span class="token punctuation">,</span> \
+                                     IN CONST INT_T map_type<span class="token punctuation">,</span> IN CONST BOOL_T send_mqtt<span class="token punctuation">,</span> \
+                                     IN CONST CHAR_T <span class="token operator">*</span>extend_msg<span class="token punctuation">,</span> IN CONST BOOL_T http_update<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 
                                 
                                 </section>
@@ -519,12 +543,12 @@
 
             
                 
-                <a href="09-other_active.html" class="navigation navigation-prev " aria-label="Previous page: 其他方式">
+                <a href="20-media.html" class="navigation navigation-prev " aria-label="Previous page: 流服务">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="11-soc_ota.html" class="navigation navigation-next " aria-label="Next page: 固件升级">
+                <a href="public_api.html" class="navigation navigation-next " aria-label="Next page: 其他接口">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -535,7 +559,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"固件升级","level":"1.6","depth":1,"next":{"title":"固件升级","level":"1.6.1","depth":2,"path":"resource/11-soc_ota.md","ref":"./resource/11-soc_ota.md","articles":[]},"previous":{"title":"其他方式","level":"1.5.4","depth":2,"path":"resource/09-other_active.md","ref":"./resource/09-other_active.md","articles":[]},"dir":"ltr"},"config":{"plugins":["js-sequence-diagram-full@>=0.3.1","prism","-highlight","anchors","plantuml"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"],"lang":{"java":"java"},"ignore":["sequence"]},"livereload":{},"search":{},"plantuml":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"js-sequence-diagram-full":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","gitbook":"*"},"file":{"path":"resource/10-ota.md","mtime":"2019-07-29T01:15:47.270Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-19T02:30:06.859Z"},"basePath":"..","book":{"language":"zh-hans"}});
+            gitbook.page.hasChanged({"page":{"title":"云存储","level":"1.8.2","depth":2,"next":{"title":"其他接口","level":"1.9","depth":1,"path":"resource/public_api.md","ref":"./resource/public_api.md","articles":[]},"previous":{"title":"流服务","level":"1.8.1","depth":2,"path":"resource/20-media.md","ref":"./resource/20-media.md","articles":[]},"dir":"ltr"},"config":{"plugins":["js-sequence-diagram-full@>=0.3.1","prism","-highlight","anchors","plantuml"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"],"lang":{"java":"java"},"ignore":["sequence"]},"livereload":{},"search":{},"plantuml":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"js-sequence-diagram-full":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","gitbook":"*"},"file":{"path":"resource/21-oss.md","mtime":"2019-08-19T01:34:55.869Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-19T02:30:06.859Z"},"basePath":"..","book":{"language":"zh-hans"}});
         });
     </script>
 </div>

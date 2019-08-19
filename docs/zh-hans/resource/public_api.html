@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>用户需实现的接口 · GitBook</title>
+        <title>其他接口 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -65,10 +65,10 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="09-other_active.html" />
+    <link rel="next" href="log_manage.html" />
     
     
-    <link rel="prev" href="08-smart_active.html" />
+    <link rel="prev" href="21-oss.html" />
     
 
     </head>
@@ -221,7 +221,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5.3" data-path="wifi_api.html">
+        <li class="chapter " data-level="1.5.3" data-path="wifi_api.html">
             
                 <a href="wifi_api.html">
             
@@ -374,7 +374,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9" data-path="public_api.html">
+        <li class="chapter active" data-level="1.9" data-path="public_api.html">
             
                 <a href="public_api.html">
             
@@ -443,7 +443,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >用户需实现的接口</a>
+        <a href=".." >其他接口</a>
     </h1>
 </div>
 
@@ -458,105 +458,91 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="&#x7528;&#x6237;&#x9700;&#x8981;&#x5B9E;&#x73B0;&#x7684;&#x63A5;&#x53E3;"><a name="&#x7528;&#x6237;&#x9700;&#x8981;&#x5B9E;&#x73B0;&#x7684;&#x63A5;&#x53E3;" class="plugin-anchor" href="#&#x7528;&#x6237;&#x9700;&#x8981;&#x5B9E;&#x73B0;&#x7684;&#x63A5;&#x53E3;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7528;&#x6237;&#x9700;&#x8981;&#x5B9E;&#x73B0;&#x7684;&#x63A5;&#x53E3;</h2>
-<p>&#x8BF4;&#x660E;&#xFF1A;&#x5982;&#x4E0B;&#x63A5;&#x53E3;&#x6D89;&#x53CA;wifi&#x7F51;&#x5361;&#x64CD;&#x4F5C;&#xFF0C;&#x8BF7;&#x6839;&#x636E;&#x8BBE;&#x5907;&#x7CFB;&#x7EDF;&#x5B9E;&#x73B0;&#xFF0C;demo&#x91CC;&#x7684;&#x5B9E;&#x73B0;&#x4EC5;&#x4F9B;&#x53C2;&#x8003;&#xFF0C;&#x672A;&#x5FC5;&#x9002;&#x914D;&#x4F60;&#x7684;&#x8BBE;&#x5907;&#xFF1B;
-tuya_sdk&#x672A;&#x5BF9;wifi&#x7F51;&#x5361;&#x9A71;&#x52A8;&#x5C42;&#x505A;&#x9650;&#x5236;&#xFF0C;&#x6BD4;&#x5982;&#x6CA1;&#x6709;&#x8981;&#x6C42;&#x5FC5;&#x987B;&#x652F;&#x6301;ifconfig&#x547D;&#x4EE4;&#x3002;</p>
-<p>&#x63A5;&#x53E3;&#x4F4D;&#x7F6E;&#xFF1A;tuya_iot_sdk/demo_soc_dev_wifi/tuya_iot_wifi_net.c&#x6587;&#x4EF6;&#x4E2D;</p>
-<p>AP&#x914D;&#x7F51;&#x548C;Smart&#x914D;&#x7F51;tuya_sdk&#x90FD;&#x4F1A;&#x8C03;&#x7528;&#x5982;&#x4E0B;&#x63A5;&#x53E3;&#xFF1B;</p>
-<h3 id="hwlwfwkmodeset"><a name="hwlwfwkmodeset" class="plugin-anchor" href="#hwlwfwkmodeset"><i class="fa fa-link" aria-hidden="true"></i></a>hwl_wf_wk_mode_set</h3>
+                                <h2 id="&#x529F;&#x80FD;&#x63A5;&#x53E3;"><a name="&#x529F;&#x80FD;&#x63A5;&#x53E3;" class="plugin-anchor" href="#&#x529F;&#x80FD;&#x63A5;&#x53E3;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x529F;&#x80FD;&#x63A5;&#x53E3;</h2>
+<h3 id="&#x83B7;&#x53D6;&#x7F51;&#x5173;&#x6216;soc&#x8BBE;&#x5907;id"><a name="&#x83B7;&#x53D6;&#x7F51;&#x5173;&#x6216;soc&#x8BBE;&#x5907;id" class="plugin-anchor" href="#&#x83B7;&#x53D6;&#x7F51;&#x5173;&#x6216;soc&#x8BBE;&#x5907;id"><i class="fa fa-link" aria-hidden="true"></i></a>&#x83B7;&#x53D6;&#x7F51;&#x5173;&#x6216;SOC&#x8BBE;&#x5907;id</h3>
 <pre class="language-"><code class="lang-c"><span class="token comment">/***********************************************************
- * @Function:hwl_wf_wk_mode_set
- * @Desc:   &#x8BBE;&#x7F6E;&#x8BBE;&#x5907;wifi&#x7F51;&#x5361;&#x5DE5;&#x4F5C;&#x6A21;&#x5F0F;
- * @Param:  mode,
- * @Return: OPRT_OK: success  Other: fail
- * @Note:   tuya_sdk&#x4F1A;&#x8C03;&#x7528;&#xFF0C;&#x5E94;&#x7528;&#x5C42;&#x9700;&#x8981;&#x6839;&#x636E;&#x8BBE;&#x5907;&#x5B9E;&#x73B0;
- * @Note:   &#x7528;&#x6237;&#x9700;&#x5B9E;&#x73B0; station/ap/sniffer&#x4E09;&#x79CD;&#x6A21;&#x5F0F;&#x5207;&#x6362;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;
- *          Smart&#x914D;&#x7F51;&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;&#x9700;&#x8981;&#x652F;&#x6301;&#x5207;&#x6362;sniffer&#x6A21;&#x5F0F;
+*  Function: tuya_iot_get_gw_id
+*  Input: none
+*  Output: none
+*  Return: (CHAR_T *)-&gt;device id
 ***********************************************************/</span>
-OPERATE_RET <span class="token function">hwl_wf_wk_mode_set</span><span class="token punctuation">(</span>IN CONST WF_WK_MD_E mode<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token comment">// UserTODO</span>
-    <span class="token keyword">switch</span> <span class="token punctuation">(</span>mode<span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">case</span> WWM_LOWPOWER<span class="token operator">:</span>
-        <span class="token punctuation">{</span>
-            <span class="token comment">//&#x5173;&#x95ED;&#x914D;&#x7F51;&#x6A21;&#x5F0F;</span>
-            <span class="token keyword">break</span><span class="token punctuation">;</span>
+CHAR_T <span class="token operator">*</span><span class="token function">tuya_iot_get_gw_id</span><span class="token punctuation">(</span>VOID<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="&#x83B7;&#x53D6;&#x8BBE;&#x5907;&#x4F4D;&#x7F6E;&#x4FE1;&#x606F;"><a name="&#x83B7;&#x53D6;&#x8BBE;&#x5907;&#x4F4D;&#x7F6E;&#x4FE1;&#x606F;" class="plugin-anchor" href="#&#x83B7;&#x53D6;&#x8BBE;&#x5907;&#x4F4D;&#x7F6E;&#x4FE1;&#x606F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x83B7;&#x53D6;&#x8BBE;&#x5907;&#x4F4D;&#x7F6E;&#x4FE1;&#x606F;</h3>
+<pre class="language-"><code class="lang-c"><span class="token comment">/***********************************************************
+*  Function: tuya_iot_get_location_info
+*  Input: p_location
+*  Output: p_location
+*  Return: OPERATE_RET
+***********************************************************/</span>
+OPERATE_RET <span class="token function">tuya_iot_get_location_info</span><span class="token punctuation">(</span>INOUT TY_LOCATION_INFO_S <span class="token operator">*</span>p_location<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="&#x83B7;&#x53D6;&#x8BBE;&#x5907;&#x65F6;&#x533A;&#x4FE1;&#x606F;"><a name="&#x83B7;&#x53D6;&#x8BBE;&#x5907;&#x65F6;&#x533A;&#x4FE1;&#x606F;" class="plugin-anchor" href="#&#x83B7;&#x53D6;&#x8BBE;&#x5907;&#x65F6;&#x533A;&#x4FE1;&#x606F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x83B7;&#x53D6;&#x8BBE;&#x5907;&#x65F6;&#x533A;&#x4FE1;&#x606F;</h3>
+<pre class="language-"><code class="lang-c"><span class="token comment">/***********************************************************
+*  Function: tuya_iot_get_region_info
+*  Input: none
+*  Output: p_region_info
+*  Return: OPERATE_RET
+***********************************************************/</span>
+OPERATE_RET <span class="token function">tuya_iot_get_region_info</span><span class="token punctuation">(</span>INOUT TY_IOT_REGION_INFO_S <span class="token operator">*</span>p_region_info<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="&#x53D6;&#x6D88;&#x5347;&#x7EA7;"><a name="&#x53D6;&#x6D88;&#x5347;&#x7EA7;" class="plugin-anchor" href="#&#x53D6;&#x6D88;&#x5347;&#x7EA7;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x53D6;&#x6D88;&#x5347;&#x7EA7;</h3>
+<p>&#x8BBE;&#x5907;&#x4E0D;&#x6EE1;&#x8DB3;&#x5347;&#x7EA7;&#x6761;&#x4EF6;&#xFF0C;&#x4E3B;&#x52A8;&#x53D6;&#x6D88;&#x5347;&#x7EA7;</p>
+<pre class="language-"><code class="lang-c">OPERATE_RET <span class="token function">tuya_iot_refuse_upgrade</span><span class="token punctuation">(</span>IN CONST FW_UG_S <span class="token operator">*</span>fw<span class="token punctuation">,</span> IN CONST CHAR_T <span class="token operator">*</span>dev_id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="&#x83B7;&#x53D6;&#x672C;&#x5730;&#x65F6;&#x95F4;"><a name="&#x83B7;&#x53D6;&#x672C;&#x5730;&#x65F6;&#x95F4;" class="plugin-anchor" href="#&#x83B7;&#x53D6;&#x672C;&#x5730;&#x65F6;&#x95F4;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x83B7;&#x53D6;&#x672C;&#x5730;&#x65F6;&#x95F4;</h3>
+<p>&#x8BF4;&#x660E;&#xFF1A;&#x7528;&#x4E8E;&#x83B7;&#x53D6;&#x7F51;&#x7EDC;&#x65F6;&#x95F4;&#xFF0C;tuya_sdk&#x4F1A;&#x8FDB;&#x884C;&#x65F6;&#x533A;&#x548C;&#x590F;&#x4EE4;&#x65F6;&#x7684;&#x6821;&#x51C6;&#xFF1B;</p>
+<h4 id="unitimechecktimesync"><a name="unitimechecktimesync" class="plugin-anchor" href="#unitimechecktimesync"><i class="fa fa-link" aria-hidden="true"></i></a>uni_time_check_time_sync</h4>
+<ol>
+<li>&#x53EF;&#x68C0;&#x6D4B;&#x8BBE;&#x5907;&#x590F;&#x4EE4;&#x65F6;&#x548C;&#x65F6;&#x533A;&#x662F;&#x5426;&#x6821;&#x51C6;&#x6210;&#x529F;&#x3002;</li>
+</ol>
+<pre class="language-"><code class="lang-c"><span class="token comment">/***********************************************************
+*  Function: uni_time_check_time_sync
+*  Desc:     check tuya-sdk inside time is synced with tuya-cloud
+*  Return:   OPRT_OK: success  Other: fail
+***********************************************************/</span>
+__UNI_TIME_EXT \
+OPERATE_RET <span class="token function">uni_time_check_time_sync</span><span class="token punctuation">(</span>VOID<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="unilocaltimeget"><a name="unilocaltimeget" class="plugin-anchor" href="#unilocaltimeget"><i class="fa fa-link" aria-hidden="true"></i></a>uni_local_time_get</h4>
+<pre class="language-"><code class="lang-c"><span class="token comment">/***********************************************************
+*  Function: uni_local_time_get
+*  Desc:     change the current time to tm_s,including the
+*            timezone and the summer time zone info
+*  Output:   tm
+*  Return:   OPRT_OK: success  Other: fail
+***********************************************************/</span>
+__UNI_TIME_EXT \
+OPERATE_RET <span class="token function">uni_local_time_get</span><span class="token punctuation">(</span>OUT POSIX_TM_S <span class="token operator">*</span>tm<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p><strong>&#x4EE3;&#x7801;&#x53C2;&#x8003;</strong></p>
+<pre class="language-"><code class="lang-c">    POSIX_TM_S local_time<span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">uni_time_check_time_sync</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> OPRT_OK<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        op_ret <span class="token operator">=</span> <span class="token function">uni_local_time_get</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>local_time<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>op_ret <span class="token operator">!=</span> OPRT_OK<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">PR_ERR</span><span class="token punctuation">(</span><span class="token string">&quot;uni_local_time_get op_ret:%d&quot;</span><span class="token punctuation">,</span> op_ret<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
-        <span class="token keyword">case</span> WWM_SNIFFER<span class="token operator">:</span>
-        <span class="token punctuation">{</span>
-            <span class="token keyword">break</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">case</span> WWM_STATION<span class="token operator">:</span>
-        <span class="token punctuation">{</span>
-            <span class="token keyword">break</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">case</span> WWM_SOFTAP<span class="token operator">:</span>
-        <span class="token punctuation">{</span>
-            <span class="token keyword">break</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">case</span> WWM_STATIONAP<span class="token operator">:</span>
-        <span class="token punctuation">{</span><span class="token comment">//reserved</span>
-            <span class="token keyword">break</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">default</span><span class="token operator">:</span>
-        <span class="token punctuation">{</span>
-            <span class="token keyword">break</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        <span class="token function">PR_DEBUG</span><span class="token punctuation">(</span><span class="token string">&quot;Current time:%d-%d-%d %d %d:%d:%d&quot;</span><span class="token punctuation">,</span> \
+                                        local_time<span class="token punctuation">.</span>tm_year <span class="token operator">+</span> <span class="token number">1900</span><span class="token punctuation">,</span>\
+                                        local_time<span class="token punctuation">.</span>tm_mon <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> \
+                                        local_time<span class="token punctuation">.</span>tm_mday<span class="token punctuation">,</span> \
+                                        local_time<span class="token punctuation">.</span>tm_wday<span class="token punctuation">,</span> \
+                                        local_time<span class="token punctuation">.</span>tm_hour<span class="token punctuation">,</span> \
+                                        local_time<span class="token punctuation">.</span>tm_min<span class="token punctuation">,</span> \
+                                        local_time<span class="token punctuation">.</span>tm_sec<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    <span class="token function">PR_DEBUG</span><span class="token punctuation">(</span><span class="token string">&quot;WIFI Set Mode:%d&quot;</span><span class="token punctuation">,</span> mode<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> OPRT_OK<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
 </code></pre>
-<h3 id="hwlwfwkmodeget"><a name="hwlwfwkmodeget" class="plugin-anchor" href="#hwlwfwkmodeget"><i class="fa fa-link" aria-hidden="true"></i></a>hwl_wf_wk_mode_get</h3>
+<h3 id="unitimegetposix"><a name="unitimegetposix" class="plugin-anchor" href="#unitimegetposix"><i class="fa fa-link" aria-hidden="true"></i></a>uni_time_get_posix</h3>
+<ol>
+<li>&#x7528;&#x4E8E;&#x83B7;&#x53D6;&#x7CFB;&#x7EDF;&#x65F6;&#x95F4;&#x6233;</li>
+</ol>
 <pre class="language-"><code class="lang-c"><span class="token comment">/***********************************************************
- * @Function:hwl_wf_wk_mode_get
- * @Desc:   &#x83B7;&#x53D6;&#x8BBE;&#x5907;wifi&#x7F51;&#x5361;&#x5DE5;&#x4F5C;&#x6A21;&#x5F0F;
- * @Param:  mode,
- * @Return: OPRT_OK: success  Other: fail
- * @Note:   tuya_sdk&#x4F1A;&#x8C03;&#x7528;&#xFF0C;&#x5E94;&#x7528;&#x5C42;&#x9700;&#x8981;&#x6839;&#x636E;&#x8BBE;&#x5907;&#x5B9E;&#x73B0;
+*  Function: uni_time_get_posix
+*  Desc:     get tuya-sdk inside time, time_t format
+*  Return:   time_t
 ***********************************************************/</span>
-OPERATE_RET <span class="token function">hwl_wf_wk_mode_get</span><span class="token punctuation">(</span>OUT WF_WK_MD_E <span class="token operator">*</span>mode<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token comment">// UserTODO</span>
-    <span class="token operator">*</span>mode <span class="token operator">=</span> <span class="token operator">?</span> <span class="token punctuation">;</span>
-    <span class="token function">PR_DEBUG</span><span class="token punctuation">(</span><span class="token string">&quot;WIFI Get Mode:%d&quot;</span><span class="token punctuation">,</span> <span class="token operator">*</span>mode<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> OPRT_OK<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<h3 id="hwlwfstationconnect"><a name="hwlwfstationconnect" class="plugin-anchor" href="#hwlwfstationconnect"><i class="fa fa-link" aria-hidden="true"></i></a>hwl_wf_station_connect</h3>
-<pre class="language-"><code class="lang-c"><span class="token comment">/***********************************************************
-*  Function: hwl_wf_station_connect
-*  Desc:     connect wifi with ssid and passwd.
-*  Input:    ssid &amp;&amp; passwd, The router&apos;s wifi name and password
-*  Return:   OPRT_OK: success  Other: fail
-*  Note:     1. tuya-sdk will call when it receives the distribution network of mobile phone to send message
-             2. After equipment has distribution network successfully, the tuya-sdk after start-up called only once
-***********************************************************/</span>
-OPERATE_RET <span class="token function">hwl_wf_station_connect</span><span class="token punctuation">(</span>IN CONST CHAR_T <span class="token operator">*</span>ssid<span class="token punctuation">,</span>IN CONST CHAR_T <span class="token operator">*</span>passwd<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token function">PR_DEBUG</span><span class="token punctuation">(</span><span class="token string">&quot;STA Con AP ssid:%s passwd:%s&quot;</span><span class="token punctuation">,</span> ssid<span class="token punctuation">,</span> passwd<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// UserTODO</span>
-
-<span class="token macro property">#<span class="token directive keyword">endif</span></span>
-    <span class="token keyword">return</span> OPRT_OK<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<h3 id="hwlwfstationstatget"><a name="hwlwfstationstatget" class="plugin-anchor" href="#hwlwfstationstatget"><i class="fa fa-link" aria-hidden="true"></i></a>hwl_wf_station_stat_get</h3>
-<pre class="language-"><code class="lang-c"><span class="token comment">/***********************************************************
-*  Function: hwl_wf_station_stat_get
-*  Desc:     get wifi station work status
-*  Output:   stat: the wifi station work status
-*  Return:   OPRT_OK: success  Other: fail
-*  Note:     User must tell tuya-sdk network status of the equipment with stat
-***********************************************************/</span>
-OPERATE_RET <span class="token function">hwl_wf_station_stat_get</span><span class="token punctuation">(</span>OUT WF_STATION_STAT_E <span class="token operator">*</span>stat<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token comment">// UserTODO</span>
-    <span class="token operator">*</span>stat <span class="token operator">=</span> <span class="token operator">?</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">return</span> OPRT_OK<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+__UNI_TIME_EXT \
+TIME_T <span class="token function">uni_time_get_posix</span><span class="token punctuation">(</span>VOID<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 
                                 
@@ -585,12 +571,12 @@ OPERATE_RET <span class="token function">hwl_wf_station_stat_get</span><span cla
 
             
                 
-                <a href="08-smart_active.html" class="navigation navigation-prev " aria-label="Previous page: Smart配网">
+                <a href="21-oss.html" class="navigation navigation-prev " aria-label="Previous page: 云存储">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="09-other_active.html" class="navigation navigation-next " aria-label="Next page: 其他方式">
+                <a href="log_manage.html" class="navigation navigation-next " aria-label="Next page: 日志管理">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -601,7 +587,7 @@ OPERATE_RET <span class="token function">hwl_wf_station_stat_get</span><span cla
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"用户需实现的接口","level":"1.5.3","depth":2,"next":{"title":"其他方式","level":"1.5.4","depth":2,"path":"resource/09-other_active.md","ref":"./resource/09-other_active.md","articles":[]},"previous":{"title":"Smart配网","level":"1.5.2","depth":2,"path":"resource/08-smart_active.md","ref":"./resource/08-smart_active.md","articles":[]},"dir":"ltr"},"config":{"plugins":["js-sequence-diagram-full@>=0.3.1","prism","-highlight","anchors","plantuml"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"],"lang":{"java":"java"},"ignore":["sequence"]},"livereload":{},"search":{},"plantuml":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"js-sequence-diagram-full":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","gitbook":"*"},"file":{"path":"resource/wifi_api.md","mtime":"2019-08-15T08:23:28.010Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-19T02:30:06.859Z"},"basePath":"..","book":{"language":"zh-hans"}});
+            gitbook.page.hasChanged({"page":{"title":"其他接口","level":"1.9","depth":1,"next":{"title":"日志管理","level":"1.10","depth":1,"path":"resource/log_manage.md","ref":"./resource/log_manage.md","articles":[]},"previous":{"title":"云存储","level":"1.8.2","depth":2,"path":"resource/21-oss.md","ref":"./resource/21-oss.md","articles":[]},"dir":"ltr"},"config":{"plugins":["js-sequence-diagram-full@>=0.3.1","prism","-highlight","anchors","plantuml"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"],"lang":{"java":"java"},"ignore":["sequence"]},"livereload":{},"search":{},"plantuml":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"js-sequence-diagram-full":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","gitbook":"*"},"file":{"path":"resource/public_api.md","mtime":"2019-08-19T01:34:55.869Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-19T02:30:06.859Z"},"basePath":"..","book":{"language":"zh-hans"}});
         });
     </script>
 </div>
