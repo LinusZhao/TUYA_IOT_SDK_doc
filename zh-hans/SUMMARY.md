@@ -9,7 +9,7 @@
 * [设备配网](./resource/06-wifi_active.md)
     * [AP配网](./resource/07-ap_active.md)
     * [Smart配网](./resource/08-smart_active.md)
-    * [用户需实现的接口](./resource/wifi_api.md)
+    * [公共函数](./resource/wifi_api.md)
     * [其他方式](./resource/09-other_active.md)
 * [固件升级](./resource/10-ota.md)
     * [固件升级](./resource/11-soc_ota.md)

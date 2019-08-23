@@ -96,3 +96,112 @@ OPERATE_RET hwl_wf_get_cur_channel(OUT BYTE_T *chan)
     return OPRT_OK;
 }
 ```
+
+### tuya-sdk抓包线程
+```c
+/*
+ *  Function: func_Sniffer 抓包线程实现
+ *  Note:     Smart配网模式时，tuya_sdk自动调用，无需应用层调用
+ *  Return:   NULL
+ */
+#pragma pack(1)
+/* http://www.radiotap.org/  */
+typedef struct {
+    BYTE_T it_version;
+    BYTE_T it_pad;
+    USHORT_T it_len;
+    UINT_T it_present;
+}ieee80211_radiotap_header;
+#pragma pack()
+
+static volatile SNIFFER_CALLBACK s_pSnifferCall = NULL;
+static volatile int s_enable_sniffer = 0;
+static void * func_Sniffer(void *pReserved)
+{
+    PR_DEBUG("Sniffer Thread Create");
+
+    int sock = socket(PF_PACKET, SOCK_RAW, htons(0x03));//ETH_P_ALL
+    if(sock < 0)
+    {
+        printf("Sniffer Socket Alloc Fails %d \r\n", sock);
+        perror("Sniffer Socket Alloc");
+        return (void *)0;
+    }
+
+    {/* 强制绑定到WLAN_DEV 上。后续可以考虑去掉 */
+        struct ifreq ifr;
+        memset(&ifr, 0x00, sizeof(ifr));
+        strncpy(ifr.ifr_name, WLAN_DEV , strlen(WLAN_DEV) + 1);
+        setsockopt(sock, SOL_SOCKET, SO_BINDTODEVICE, (char *)&ifr, sizeof(ifr));
+    }
+
+    #define MAX_REV_BUFFER 512
+    BYTE_T rev_buffer[MAX_REV_BUFFER];
+
+    int skipLen = 26;/* radiotap 默认长度为26 */
+
+    while((s_pSnifferCall != NULL) && (s_enable_sniffer == 1))
+    {
+        int rev_num = recvfrom(sock, rev_buffer, MAX_REV_BUFFER, 0, NULL, NULL);
+        ieee80211_radiotap_header *pHeader = (ieee80211_radiotap_header *)rev_buffer;
+        skipLen = pHeader->it_len;
+
+#ifdef WIFI_CHIP_7601
+        skipLen = 144;
+#endif
+        if(skipLen >= MAX_REV_BUFFER)
+        {/* 有出现过header全ff的情况，这里直接丢掉这个包 */
+            continue;
+        }
+#if 0
+        {
+            printf("skipLen:%d ", skipLen);
+            int index = 0;
+            for(index = 0; index < 180; index++)
+            {
+                printf("%02X-", rev_buffer[index]);
+            }
+            printf("\r\n");
+        }
+#endif
+        /* wifi recv from packages from the air, and send these 
+         packages to tuya-sdk with hwl_wf_sniffer_set of callback <cb> */
+        if(rev_num > skipLen)
+        {
+            s_pSnifferCall(rev_buffer + skipLen, rev_num - skipLen);
+        }
+        PR_DEBUG("s_enable_sniffer");
+    }
+
+     s_pSnifferCall = NULL;
+
+    close(sock);
+
+    PR_DEBUG("Sniffer Proc Finish");
+    return (void *)0;
+}
+
+// 开启或退出抓包线程，tuya-sdk会调用
+static pthread_t sniffer_thId; // 抓包线程ID
+OPERATE_RET hwl_wf_sniffer_set(IN CONST BOOL_T en,IN CONST SNIFFER_CALLBACK cb)
+{
+    if(en == TRUE)
+    {
+        PR_DEBUG("Enable Sniffer");
+        hwl_wf_wk_mode_set(WWM_SNIFFER);
+        s_pSnifferCall = cb;
+        if(s_enable_sniffer == 1){
+            return;
+        }
+        s_enable_sniffer = 1;
+        pthread_create(&sniffer_thId, NULL, func_Sniffer, NULL);
+    }else
+    {
+        PR_DEBUG("Disable Sniffer");
+        s_enable_sniffer = 0;
+        pthread_join(sniffer_thId, NULL);
+        hwl_wf_wk_mode_set(WWM_STATION);
+    }
+    return OPRT_OK;
+}
+```

@@ -1,5 +1,8 @@
 ## WiFi设备配网
 
+涉及到操作设备的底层接口，sdk将函数体定义好，具体需要开发者根据设备实现，sdk需要时会调用函数；
+函数位置：tuya_iot_sdk/demo_soc_dev_wifi/tuya_iot_wifi_net.c文件中，文件中接口实现供参考，需要可以根据设备调整
+
 ### wifi配网支持模式设置
 
 WiFi设备配网主要有Smart模式和AP模式两种, Smart配网模式需要设备wifi网卡支持sniffer模式。
@@ -15,7 +18,8 @@ WiFi设备配网主要有Smart模式和AP模式两种, Smart配网模式需要�
 
 ### 设备进入配网模式流程
 
-说明：tuya_sdk会开启多线程，进入配网模式生效必须重启进程，不可只重启主线程。
+> [!NOTE]
+> 说明：tuya_sdk会开启多线程，进入配网模式生效必须重启进程，不可只重启主线程。
 
 ```sequence
 Title: 

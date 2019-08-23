@@ -4,7 +4,13 @@
     "prism",
     "-highlight",
     "anchors",
-    "plantuml"
+    "plantuml",
+    "page-copyright",
+    "flexible-alerts",
+    "pageview-count",
+    "popup",
+    "chapter-fold",
+    "splitter"
   ],
   "pluginsConfig": {
     "prism": {
@@ -17,6 +23,19 @@
       "ignore": [
         "sequence"
       ]
+    },
+    "page-copyright": {
+      "description": "Modified at",
+      "signature": "<a href='https://github.com/TuyaInc' target='_blank'>Tuya Inc</a>",
+      "wisdom": "<a href='https://www.tuya.com' target='_blank'>www.tuya.com</a>",
+      "format": "YYYY-MM-dd hh:mm:ss",
+      "copyright": "Copyright &#169; Tuya Inc",
+      "timeColor": "#666",
+      "copyrightColor": "#666",
+      "utcOffset": "8",
+      "style": "normal",
+      "noPowered": true,
+      "isShowQRCode": false
     }
   }
 }
